@@ -1,0 +1,36 @@
+# Secrets — defense-in-depth. Hard excludes are also enforced by file selection,
+# but these patterns catch accidental drops.
+*.key
+*.pem
+*.token
+.credentials*
+.env*
+secrets*
+*_secret*
+*bearer*
+
+# Real settings files (commit only the *.example.json templates)
+settings.json
+settings.local.json
+
+# Claude Code runtime state — must never enter this repo
+projects/
+sessions/
+cache/
+paste-cache/
+file-history/
+telemetry/
+session-env/
+shell-snapshots/
+backups/
+downloads/
+debug/
+tasks/
+todos/
+plans/
+plugins/
+statsig/
+history.jsonl
+mcp-needs-auth-cache.json
+stats-cache.json
+.nfs*

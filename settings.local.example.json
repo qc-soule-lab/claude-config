@@ -1,0 +1,17 @@
+{
+  "_comment": "Per-machine permission allowlist. Copy to settings.local.json and add machine-specific grants there. Project-specific grants (paths, scripts under /home/<you>/repos/<project>/) belong here, NOT in this template.",
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(uv run:*)",
+      "Bash(uv add *)",
+      "Bash(ps:*)",
+      "Bash(g)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(gh repo *)",
+      "Bash(gh api *)"
+    ]
+  }
+}
