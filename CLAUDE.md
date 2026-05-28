@@ -43,6 +43,18 @@ If the user wants to exceed 24, they will say so explicitly ("use 48 workers", "
 
 **General rule**: Match the tool to the audience. If someone will interact with the plot (explore data, hover for values, rotate 3D), use Plotly. If it goes in a paper or PDF, use matplotlib.
 
+## Naming Conventions
+
+**All new directories and files use `snake_case` lowercase.** Examples: `lesson_plans/`, `week_03_least_squares/`, `data_loader.py`, `provenance_notes.md`, `figure_01_overview.png`. This matches PEP 8 for Python and stays consistent across the data/science stack.
+
+**Exceptions — preserve as-is, don't rename**:
+
+- **External-convention names**: filenames or dirs whose form is dictated by an ecosystem or tool — `README.md`, `LICENSE`, `CHANGELOG.md`, `Makefile`, `Dockerfile`, `.github/`, `node_modules/`, `pyproject.toml`, `CLAUDE.md`, `MEMORY.md`, etc.
+- **Archive directories**: anything under `archive/` (or similar historical-reference folder) keeps its original filename — archives exist to preserve provenance.
+- **Pre-existing files**: don't rename files that already exist unless the user explicitly asks. The rule applies forward to *new* files and dirs you create.
+
+Reason: predictable, scannable layouts; case-insensitive filesystems on macOS (APFS default) hide bugs that git's case-sensitive tracking later surfaces — a single lowercase convention eliminates the whole class.
+
 ## Testing
 
 **All code must pass pytest before being committed.** Pushing code that fails tests is unacceptable.
