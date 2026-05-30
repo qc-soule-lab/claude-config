@@ -60,6 +60,7 @@ Reason: predictable, scannable layouts; case-insensitive filesystems on macOS (A
 Projects under `/Users/dax/repos/` are organized into three buckets (adopted 2026-05-30):
 
 - `class_dev/` covers course development. Currently holds `geol-333-fall-2026`, `geol-795-makayla-fall-2026`, `ocean540_guest_lecture`.
+- `forms_dev/` covers university forms and paperwork. Currently holds `qc_forms`.
 - `meeting_dev/` covers meeting prep, talks, and briefings. Currently holds `OOIFB_May2026_Plan`.
 - `report_dev/` covers data analyses, theses, and reports. Currently holds `ctdMAB_my-analysis`, `joseph-scaleworm-thesis`.
 
