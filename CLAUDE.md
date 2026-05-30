@@ -63,7 +63,7 @@ Projects under `/Users/dax/repos/` are organized into buckets (adopted 2026-05-3
 - `forms_dev/` covers university forms and paperwork. Currently holds `qc_forms`.
 - `loc_science_dev/` covers science work that runs on a local machine (as opposed to OOI or other cloud servers). Currently holds `ctdMAB_my-analysis`, `joseph-scaleworm-thesis`.
 - `meeting_dev/` covers meeting prep, talks, and briefings. Currently holds `OOIFB_May2026_Plan`.
-- `report_dev/` covers formal reports and written deliverables (expense, NSF project, multi-position, sabbatical, annual eval). Holds scripts only; final reports and receipts live in Dropbox, not git. Currently holds `expense_reports`.
+- `report_dev/` covers formal reports and written deliverables (expense, NSF project, multi-position, sabbatical, annual eval). Holds scripts only; final reports and receipts live in Dropbox, not git. Currently holds `expense_reports`, `sabbatical_reports`.
 
 Two infra dirs stay at the `repos/` root: `claude-config` (Claude settings; this file lives there) and `dotfiles` (shell + editor configs).
 
