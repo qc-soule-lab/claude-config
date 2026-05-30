@@ -55,6 +55,18 @@ If the user wants to exceed 24, they will say so explicitly ("use 48 workers", "
 
 Reason: predictable, scannable layouts; case-insensitive filesystems on macOS (APFS default) hide bugs that git's case-sensitive tracking later surfaces — a single lowercase convention eliminates the whole class.
 
+## Repos Layout
+
+Projects under `/Users/dax/repos/` are organized into three buckets (adopted 2026-05-30):
+
+- `class_dev/` covers course development. Currently holds `geol-333-fall-2026`, `geol-795-makayla-fall-2026`, `ocean540_guest_lecture`.
+- `meeting_dev/` covers meeting prep, talks, and briefings. Currently holds `OOIFB_May2026_Plan`.
+- `report_dev/` covers data analyses, theses, and reports. Currently holds `ctdMAB_my-analysis`, `joseph-scaleworm-thesis`.
+
+Two infra dirs stay at the `repos/` root: `claude-config` (Claude settings; this file lives there) and `dotfiles` (shell + editor configs).
+
+When creating a new repo, place it under the bucket that matches its purpose. Bucket directory names follow the snake_case rule above.
+
 ## Testing
 
 **All code must pass pytest before being committed.** Pushing code that fails tests is unacceptable.
