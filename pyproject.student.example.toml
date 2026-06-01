@@ -1,0 +1,49 @@
+# qc-soule-lab — shared student project dependencies (uv).
+# Source of truth: claude-config. Copy to a student repo as `pyproject.toml`, then `uv sync`.
+# Repo-agnostic ML/CV + scientific-Python stack. uv builds a project-local .venv (no conda).
+[project]
+name = "student-project"
+version = "0.1.0"
+description = "qc-soule-lab student project"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    # --- deep learning / computer vision (CPU wheels by default; see GPU note below) ---
+    "torch>=2.1",
+    "torchvision>=0.16",
+    "opencv-python>=4.9",
+    "ultralytics>=8.3",
+    # --- scientific Python ---
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "scipy>=1.11",
+    "scikit-learn>=1.4",
+    "pyarrow>=15.0",
+    "h5py>=3.10",
+    # --- visualization ---
+    "matplotlib>=3.8",
+    "plotly>=5.20",
+    "pillow>=10.0",
+    # --- notebooks / kernel ---
+    "jupyterlab>=4.0",
+    "ipykernel>=6.25",
+    "ipympl>=0.9",          # %matplotlib widget is flaky on this JupyterHub — fall back to standalone HTML if needed
+    # --- utilities / reporting ---
+    "tqdm>=4.66",
+    "weasyprint>=60",       # PDF rendering (pango/cairo present system-wide)
+    "markdown>=3.5",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.0"]       # CLAUDE.md requires `uv run pytest` before every commit
+
+# --- GPU profile ONLY ---------------------------------------------------------
+# The default JupyterHub node has no GPU (nvidia-smi absent), so CPU torch is correct.
+# When working on a GPU profile, pull CUDA wheels by uncommenting:
+# [[tool.uv.index]]
+# name = "pytorch-cu121"
+# url = "https://download.pytorch.org/whl/cu121"
+# explicit = true
+# [tool.uv.sources]
+# torch = { index = "pytorch-cu121" }
+# torchvision = { index = "pytorch-cu121" }

@@ -1,0 +1,129 @@
+#!/usr/bin/env python3
+"""azure_lake — minimal CLI for the personal Azure data lake.
+
+Reads container SAS URL from $AZURE_BLOB_SAS_URL (set in ~/.azure/magma2vents.env,
+sourced from ~/.bashrc).
+
+Subcommands:
+  upload <local_path> [--blob-name NAME] [--overwrite]
+  download <blob_name> <local_path>
+  ls [--prefix PREFIX]
+  rm <blob_name>
+  info                                  # show SAS perms + expiry + container
+
+Multi-container support (future): pass --sas-url to override $AZURE_BLOB_SAS_URL,
+or set per-container env vars and pass --env AZURE_SAS_BRAVOSEIS.
+"""
+import argparse
+import os
+import sys
+from pathlib import Path
+from urllib.parse import urlparse, parse_qs
+
+
+def get_client(sas_url):
+    from azure.storage.blob import ContainerClient
+    return ContainerClient.from_container_url(sas_url)
+
+
+def cmd_upload(args, client):
+    local = Path(args.local_path).resolve()
+    if not local.is_file():
+        sys.exit(f"error: {local} is not a file")
+    blob_name = args.blob_name or local.name
+    size_mb = local.stat().st_size / 1024 / 1024
+    print(f"uploading {local} ({size_mb:.2f} MB) → {blob_name}", file=sys.stderr)
+    with local.open("rb") as f:
+        client.upload_blob(name=blob_name, data=f, overwrite=args.overwrite)
+    print(blob_name)
+
+
+def cmd_download(args, client):
+    local = Path(args.local_path).resolve()
+    local.parent.mkdir(parents=True, exist_ok=True)
+    print(f"downloading {args.blob_name} → {local}", file=sys.stderr)
+    with local.open("wb") as f:
+        stream = client.download_blob(args.blob_name)
+        f.write(stream.readall())
+    print(local)
+
+
+def cmd_ls(args, client):
+    blobs = list(client.list_blobs(name_starts_with=args.prefix or None))
+    if not blobs:
+        print("(empty)", file=sys.stderr)
+        return
+    for b in sorted(blobs, key=lambda x: x.name):
+        size_mb = b.size / 1024 / 1024
+        ts = b.last_modified.strftime("%Y-%m-%d %H:%M")
+        print(f"{ts}  {size_mb:8.2f} MB  {b.name}")
+
+
+def cmd_rm(args, client):
+    print(f"deleting {args.blob_name}", file=sys.stderr)
+    client.delete_blob(args.blob_name)
+    print(args.blob_name)
+
+
+def cmd_info(args, sas_url):
+    parts = urlparse(sas_url)
+    container = parts.path.lstrip("/")
+    q = parse_qs(parts.query)
+    perm_map = {"r": "read", "a": "add", "c": "create", "w": "write",
+                "d": "delete", "l": "list", "t": "tag", "i": "immutable",
+                "y": "permdelete"}
+    sp = q.get("sp", [""])[0]
+    print(f"account:     {parts.hostname.split('.')[0]}")
+    print(f"container:   {container}")
+    print(f"permissions: {', '.join(perm_map.get(c, c) for c in sp)} (raw: {sp})")
+    print(f"start (UTC): {q.get('st', [''])[0]}")
+    print(f"expiry (UTC):{q.get('se', [''])[0]}")
+    print(f"resource:    {q.get('sr', [''])[0]} (c=container, b=blob)")
+
+
+def main():
+    p = argparse.ArgumentParser(prog="azure_lake", description=__doc__,
+                                formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument("--sas-url", default=None,
+                   help="container SAS URL (default: $AZURE_BLOB_SAS_URL)")
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    up = sub.add_parser("upload", help="upload a local file to the container")
+    up.add_argument("local_path")
+    up.add_argument("--blob-name", default=None,
+                    help="blob name (default: local file basename)")
+    up.add_argument("--overwrite", action="store_true",
+                    help="overwrite if blob exists (default: error)")
+    up.set_defaults(func=cmd_upload)
+
+    dn = sub.add_parser("download", help="download a blob to a local path")
+    dn.add_argument("blob_name")
+    dn.add_argument("local_path")
+    dn.set_defaults(func=cmd_download)
+
+    ls = sub.add_parser("ls", help="list blobs in the container")
+    ls.add_argument("--prefix", default=None, help="only list blobs starting with PREFIX")
+    ls.set_defaults(func=cmd_ls)
+
+    rm = sub.add_parser("rm", help="delete a blob from the container")
+    rm.add_argument("blob_name")
+    rm.set_defaults(func=cmd_rm)
+
+    nf = sub.add_parser("info", help="show SAS permissions, expiry, container")
+    nf.set_defaults(func=cmd_info)
+
+    args = p.parse_args()
+
+    sas_url = args.sas_url or os.environ.get("AZURE_BLOB_SAS_URL")
+    if not sas_url:
+        sys.exit("error: set $AZURE_BLOB_SAS_URL (source ~/.azure/<container>.env) "
+                 "or pass --sas-url")
+
+    if args.cmd == "info":
+        cmd_info(args, sas_url)
+    else:
+        args.func(args, get_client(sas_url))
+
+
+if __name__ == "__main__":
+    main()
