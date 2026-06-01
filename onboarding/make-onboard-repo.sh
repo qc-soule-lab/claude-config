@@ -13,7 +13,7 @@
 set -euo pipefail
 
 NAME=""; PROJECT_REPO=""; CONTAINER=""; GH_USER=""; ORG="qc-soule-lab"; ROLE="student"
-CLAUDE_CONFIG_URL="https://github.com/daxsoule/claude-config.git"  # TODO: -> qc-soule-lab after transfer
+CLAUDE_CONFIG_URL="https://github.com/qc-soule-lab/claude-config.git"
 CREATE=0
 NAME="${1:-}"; shift || true
 while [ $# -gt 0 ]; do

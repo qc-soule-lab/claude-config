@@ -18,9 +18,8 @@ else
 fi
 
 # 2) lab Claude config — skills (incl. ethical-check), hooks, CLAUDE.md, student settings
-#    NOTE: switch the URL to qc-soule-lab/claude-config once the repo is transferred into the org.
 CFG="$HOME/repos/claude-config"
-[ -d "$CFG" ] || git clone https://github.com/daxsoule/claude-config.git "$CFG"
+[ -d "$CFG" ] || git clone https://github.com/qc-soule-lab/claude-config.git "$CFG"
 mkdir -p "$HOME/.claude"
 # seed the STUDENT settings first so install.sh won't overwrite it with the generic template
 [ -f "$HOME/.claude/settings.json" ] || cp "$CFG/settings.$ROLE.example.json" "$HOME/.claude/settings.json"

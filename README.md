@@ -31,7 +31,7 @@ not make this repo public without scrubbing both.
 
 ```bash
 # On each machine:
-git clone git@github.com:daxsoule/claude-config.git ~/repos/claude-config
+git clone git@github.com:qc-soule-lab/claude-config.git ~/repos/claude-config
 cd ~/repos/claude-config
 ./install.sh
 ```
