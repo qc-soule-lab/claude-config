@@ -12,7 +12,7 @@
 # Without --create it just produces the repo locally for you to review.
 set -euo pipefail
 
-NAME=""; PROJECT_REPO=""; CONTAINER=""; GH_USER=""; ORG="qc-soule-lab"
+NAME=""; PROJECT_REPO=""; CONTAINER=""; GH_USER=""; ORG="qc-soule-lab"; ROLE="student"
 CLAUDE_CONFIG_URL="https://github.com/daxsoule/claude-config.git"  # TODO: -> qc-soule-lab after transfer
 CREATE=0
 NAME="${1:-}"; shift || true
@@ -22,18 +22,23 @@ while [ $# -gt 0 ]; do
     --container) CONTAINER="$2"; shift 2;;
     --github-user) GH_USER="$2"; shift 2;;
     --org) ORG="$2"; shift 2;;
+    --role) ROLE="$2"; shift 2;;
     --claude-config-url) CLAUDE_CONFIG_URL="$2"; shift 2;;
     --create) CREATE=1; shift;;
     *) echo "unknown arg: $1" >&2; exit 2;;
   esac
 done
 [ -n "$NAME" ] && [ -n "$PROJECT_REPO" ] && [ -n "$CONTAINER" ] || {
-  echo "usage: make-onboard-repo.sh <name> --project-repo <url> --container <name> [--github-user <login>] [--create]" >&2
+  echo "usage: make-onboard-repo.sh <name> --project-repo <url> --container <name> [--role student|collaborator] [--github-user <login>] [--create]" >&2
   exit 2; }
 
 SLUG="$(printf '%s' "$NAME" | tr '[:upper:] ' '[:lower:]-' | tr -cd 'a-z0-9-' | sed 's/--*/-/g; s/^-//; s/-$//')"
 CFG="$(cd "$(dirname "$0")/.." && pwd)"
-TPL="$CFG/onboarding/templates/onboard"
+case "$ROLE" in
+  student)      TPL="$CFG/onboarding/templates/onboard";;
+  collaborator) TPL="$CFG/onboarding/templates/onboard-collaborator";;
+  *) echo "error: --role must be 'student' or 'collaborator'" >&2; exit 2;;
+esac
 OUT="$HOME/repos/onboard-$SLUG"
 
 [ -d "$OUT" ] && { echo "error: $OUT already exists" >&2; exit 1; }

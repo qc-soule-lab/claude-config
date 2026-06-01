@@ -3,7 +3,10 @@
 # Run from INSIDE the student's project repo (the dir with — or that should get — a pyproject.toml).
 # Safe to re-run. No conda: uv handles project deps; ffmpeg is system-wide; default node is CPU.
 set -euo pipefail
-echo "== qc-soule-lab student bootstrap =="
+ROLE="student"
+[ "${1:-}" = "--role" ] && ROLE="${2:-student}"
+case "$ROLE" in student|collaborator) ;; *) echo "error: --role must be student|collaborator" >&2; exit 2;; esac
+echo "== qc-soule-lab member bootstrap (role: $ROLE) =="
 
 # 1) uv — project + tool manager
 if ! command -v uv >/dev/null 2>&1; then
@@ -20,7 +23,7 @@ CFG="$HOME/repos/claude-config"
 [ -d "$CFG" ] || git clone https://github.com/daxsoule/claude-config.git "$CFG"
 mkdir -p "$HOME/.claude"
 # seed the STUDENT settings first so install.sh won't overwrite it with the generic template
-[ -f "$HOME/.claude/settings.json" ] || cp "$CFG/settings.student.example.json" "$HOME/.claude/settings.json"
+[ -f "$HOME/.claude/settings.json" ] || cp "$CFG/settings.$ROLE.example.json" "$HOME/.claude/settings.json"
 ( cd "$CFG" && ./install.sh )
 echo "[2/5] lab Claude config installed (skills + hooks + CLAUDE.md + student settings)"
 
