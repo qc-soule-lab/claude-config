@@ -67,6 +67,13 @@ if [ "$CREATE" = "1" ]; then
   if [ -n "$GH_USER" ]; then
     gh api -X PUT "/repos/$ORG/onboard-$SLUG/collaborators/$GH_USER" -f permission=push >/dev/null \
       && echo "invited $GH_USER (push access)"
+    # Students are OUTSIDE collaborators (no org membership), so they don't get the
+    # private claude-config baseline via the 'collaborators' team — bootstrap's clone
+    # would 404. Give them a direct read invite. Collaborators get it via the team, so skip.
+    if [ "$ROLE" = "student" ]; then
+      gh api -X PUT "/repos/$ORG/claude-config/collaborators/$GH_USER" -f permission=pull >/dev/null \
+        && echo "invited $GH_USER to claude-config (read) — required for bootstrap"
+    fi
   fi
 fi
 
