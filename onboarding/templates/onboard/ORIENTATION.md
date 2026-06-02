@@ -9,7 +9,7 @@
 Guide the member through these steps **one at a time**, confirming each before the next.
 
 ### 1. Confirm they're authenticated
-They launched `claude`, so their `{{ORG}}` Team seat is working. If they hit an auth error instead, stop — they need to sign in to Claude Code under their lab (Team) account first.
+They launched `claude`, so their `{{ORG}}` Team seat is working. Have them run `/status` — it should show the Team account. If they hit an auth error or a login prompt that won't complete (the Hub's localhost browser callback often can't connect), the fix is a token: quit, run `claude setup-token` in a terminal, approve in the browser, `export CLAUDE_CODE_OAUTH_TOKEN=<token>`, then relaunch `claude`. If `/status` shows no seat at all, their Team invite isn't active yet — stop and have Dr. Soule check.
 
 ### 2. Clone the project repo and enter it
 ```bash
@@ -26,15 +26,29 @@ bash ~/repos/claude-config/bootstrap-student.sh
 Explain what it's doing as it runs; it may take a few minutes on first sync.
 
 ### 4. Set up Azure access
-Dr. Soule sent them a credential file. Have them save it as `~/.azure/{{CONTAINER}}.env` and lock it down:
-```bash
-mkdir -p ~/.azure && chmod 700 ~/.azure
-# paste/move the file to ~/.azure/{{CONTAINER}}.env, then:
-chmod 600 ~/.azure/{{CONTAINER}}.env
-source ~/.azure/{{CONTAINER}}.env
-azure_lake info     # should show their container + SAS expiry
-```
-**Never print the SAS URL.** If it appears on screen, tell them to notify Dr. Soule so it can be rotated.
+Dr. Soule securely sends them the SAS for **their own** container `{{CONTAINER}}` (never anyone else's — per-person isolation). Newcomers hit several traps saving it, so use this **exact** method:
+
+1. **Make the directory FIRST** — editors/`nano` fail to save if it doesn't exist (bootstrap also creates it, but confirm):
+   ```bash
+   mkdir -p ~/.azure && chmod 700 ~/.azure
+   ```
+2. **Create the file with `nano`** — NOT the JupyterLab "Save As" dialog (it can't write hidden dotfolders like `.azure`), and NOT a pasted `read -s … && …` one-liner (a stray newline in the paste breaks it and can echo the secret):
+   ```bash
+   nano ~/.azure/{{CONTAINER}}.env
+   ```
+   In nano, make **one line** — type the wrapper and paste the URL **between** the quotes:
+   ```
+   export AZURE_BLOB_SAS_URL='<paste the SAS URL here>'
+   ```
+   Paste in a browser terminal = **Ctrl+Shift+V** (or right-click → Paste, or **Cmd+V** on Mac). Save = **Ctrl-O, Enter**; exit = **Ctrl-X**.
+3. **Lock down + verify:**
+   ```bash
+   chmod 600 ~/.azure/{{CONTAINER}}.env
+   source ~/.azure/{{CONTAINER}}.env && azure_lake info && azure_lake ls && echo OK
+   ```
+   `azure_lake info` should show container `{{CONTAINER}}` + `racwdl` + expiry; `ls` empty + `OK` confirms it reaches Azure. If `info` errors, the SAS got mangled on paste — redo step 2.
+
+**Never let the SAS land in chat, a commit, or shared output.** It showing in their own `nano`/terminal while saving is fine; if it appears anywhere shared, tell Dr. Soule to rotate it. (Common newbie slip: typing the file *path* alone at the prompt → "permission denied" because bash tries to *run* the file — they need to `nano`/open it, not execute it.)
 
 ### 5. Verify SpecKit
 ```bash

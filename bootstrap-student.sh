@@ -45,6 +45,9 @@ echo "[4/6] uv sync complete; Jupyter kernel 'Python ($PROJ)' registered"
 echo "[5/6] installing azure_lake ..."
 mkdir -p "$HOME/.local/bin"
 ln -sfn "$CFG/tools/azure_lake" "$HOME/.local/bin/azure_lake"
+# Ensure the credential dir exists now, so the SAS-save step (nano ~/.azure/<container>.env)
+# never fails on a missing dir. (Editors/nano can't create the parent dir for you.)
+mkdir -p "$HOME/.azure" && chmod 700 "$HOME/.azure"
 # azure_lake's one dependency. This is a GLOBAL helper CLI, not project deps —
 # the only sanctioned 'pip install' exception to the lab's uv-only rule.
 python3 -m pip install --user --quiet azure-storage-blob \

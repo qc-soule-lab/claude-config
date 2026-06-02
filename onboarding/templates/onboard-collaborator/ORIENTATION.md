@@ -9,7 +9,7 @@
 Work through these with them (they're an experienced peer — move efficiently, but confirm each external-effect step):
 
 ### 1. Confirm authentication
-They launched `claude`, so their `{{ORG}}` Team (Premium) seat works. If they hit an auth error, they need to sign in under the lab account first.
+They launched `claude` — have them run `/status` to confirm the `{{ORG}}` Team (Premium) seat. If the login won't complete (the Hub's localhost browser callback often can't connect), use a token: `claude setup-token` → approve in browser → `export CLAUDE_CODE_OAUTH_TOKEN=<token>` → relaunch. If `/status` shows no seat, their Team invite isn't active yet — check with Dax.
 
 ### 2. Clone the project repo
 ```bash
@@ -25,12 +25,16 @@ bash ~/repos/claude-config/bootstrap-student.sh --role collaborator
 ```
 
 ### 4. Azure access
-Dax sent a credential file. Save it as `~/.azure/{{CONTAINER}}.env` (chmod 600), then:
+Dax securely sends the SAS for **their own** container `{{CONTAINER}}`. Save it robustly (these traps bite even experienced users): the dir must exist first, the JupyterLab "Save As" can't write hidden dotfolders, and a pasted `read`/`&&` one-liner breaks on a stray newline. Use `nano`:
 ```bash
-chmod 600 ~/.azure/{{CONTAINER}}.env && source ~/.azure/{{CONTAINER}}.env
-azure_lake info       # shows their container + SAS expiry
+mkdir -p ~/.azure && chmod 700 ~/.azure       # bootstrap also does this
+nano ~/.azure/{{CONTAINER}}.env
+#   one line:  export AZURE_BLOB_SAS_URL='<paste SAS URL between the quotes>'
+#   paste = Ctrl+Shift+V / right-click / Cmd+V ; save = Ctrl-O, Enter ; exit = Ctrl-X
+chmod 600 ~/.azure/{{CONTAINER}}.env
+source ~/.azure/{{CONTAINER}}.env && azure_lake info && azure_lake ls && echo OK
 ```
-**Never print the SAS URL.** If it appears, tell Dax to rotate it.
+`azure_lake info` shows container `{{CONTAINER}}` + `racwdl` + expiry; `ls` empty + `OK` = reaches Azure. **Never let the SAS land in chat, a commit, or shared output** (in their own nano/terminal is fine); if it does, tell Dax to rotate it.
 
 ### 5. Verify SpecKit
 ```bash
