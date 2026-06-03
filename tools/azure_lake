@@ -8,8 +8,12 @@ Subcommands:
   upload <local_path> [--blob-name NAME] [--overwrite]
   download <blob_name> <local_path>
   ls [--prefix PREFIX]
+  du [--prefix PREFIX] [--by-prefix]    # total size + blob count (this container)
   rm <blob_name>
   info                                  # show SAS perms + expiry + container
+
+Note: du reports THIS container only (a container SAS can't see others). For the
+account-wide total across all containers, sum them with the storage account key.
 
 Multi-container support (future): pass --sas-url to override $AZURE_BLOB_SAS_URL,
 or set per-container env vars and pass --env AZURE_SAS_BRAVOSEIS.
@@ -24,6 +28,15 @@ from urllib.parse import urlparse, parse_qs
 def get_client(sas_url):
     from azure.storage.blob import ContainerClient
     return ContainerClient.from_container_url(sas_url)
+
+
+def human(n):
+    n = float(n)
+    for unit in ("B", "KB", "MB", "GB", "TB"):
+        if n < 1024:
+            return f"{n:.1f} {unit}"
+        n /= 1024
+    return f"{n:.1f} PB"
 
 
 def cmd_upload(args, client):
@@ -57,6 +70,28 @@ def cmd_ls(args, client):
         size_mb = b.size / 1024 / 1024
         ts = b.last_modified.strftime("%Y-%m-%d %H:%M")
         print(f"{ts}  {size_mb:8.2f} MB  {b.name}")
+
+
+def cmd_du(args, client):
+    total = 0
+    count = 0
+    groups = {}
+    for b in client.list_blobs(name_starts_with=args.prefix or None):
+        sz = b.size or 0
+        total += sz
+        count += 1
+        if args.by_prefix:
+            top = b.name.split("/", 1)[0] + "/" if "/" in b.name else "(root)"
+            g = groups.setdefault(top, [0, 0])
+            g[0] += sz
+            g[1] += 1
+    if args.by_prefix and groups:
+        for k in sorted(groups, key=lambda x: groups[x][0], reverse=True):
+            sz, n = groups[k]
+            print(f"{human(sz):>10}  {n:>7}  {k}")
+        print("-" * 34)
+    scope = f" under '{args.prefix}'" if args.prefix else ""
+    print(f"{human(total):>10}  {count:>7}  TOTAL{scope}")
 
 
 def cmd_rm(args, client):
@@ -104,6 +139,12 @@ def main():
     ls = sub.add_parser("ls", help="list blobs in the container")
     ls.add_argument("--prefix", default=None, help="only list blobs starting with PREFIX")
     ls.set_defaults(func=cmd_ls)
+
+    du = sub.add_parser("du", help="total size + blob count for this container (or a prefix)")
+    du.add_argument("--prefix", default=None, help="only count blobs starting with PREFIX")
+    du.add_argument("--by-prefix", action="store_true",
+                    help="break down by top-level prefix (folder)")
+    du.set_defaults(func=cmd_du)
 
     rm = sub.add_parser("rm", help="delete a blob from the container")
     rm.add_argument("blob_name")
