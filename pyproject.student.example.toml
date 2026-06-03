@@ -45,6 +45,7 @@ target-version = "py312"
 [tool.ruff.lint]
 # pycodestyle (E) + pyflakes (F) + isort (I) + pyupgrade (UP) + bugbear (B)
 select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]   # ruff format owns line length; don't nag long strings/URLs/messages
 
 # --- GPU profile ONLY ---------------------------------------------------------
 # The default JupyterHub node has no GPU (nvidia-smi absent), so CPU torch is correct.

@@ -15,8 +15,12 @@ Usage:
 The SAS is written to ~/.azure/handoff/<container>.env (chmod 600) — NOT printed to screen —
 for you to hand to the student over a secure channel. They save it as ~/.azure/<container>.env.
 """
-import argparse, os, re, sys
-from datetime import datetime, timedelta, timezone
+
+import argparse
+import os
+import re
+import sys
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 
@@ -31,7 +35,9 @@ def main():
     student = re.sub(r"[^a-z0-9-]", "-", args.student.lower()).strip("-")
     container = f"{args.project}-{student}"
     if not re.fullmatch(r"[a-z0-9](?:[a-z0-9-]{1,61}[a-z0-9])", container):
-        sys.exit(f"error: '{container}' is not a valid Azure container name (3-63 chars, lowercase).")
+        sys.exit(
+            f"error: '{container}' is not a valid Azure container name (3-63 chars, lowercase)."
+        )
 
     key = os.environ.get("AZURE_STORAGE_KEY")
     if not key:
@@ -46,10 +52,14 @@ def main():
 
     try:
         from azure.storage.blob import (
-            BlobServiceClient, generate_container_sas, ContainerSasPermissions,
+            BlobServiceClient,
+            ContainerSasPermissions,
+            generate_container_sas,
         )
     except ImportError:
-        sys.exit("error: azure-storage-blob not installed. Run: python3 -m pip install --user azure-storage-blob")
+        sys.exit(
+            "error: azure-storage-blob not installed. Run: python3 -m pip install --user azure-storage-blob"
+        )
 
     svc = BlobServiceClient(f"https://{args.account}.blob.core.windows.net", credential=key)
     cc = svc.get_container_client(container)
@@ -59,7 +69,7 @@ def main():
     else:
         print(f"container already exists: {container}", file=sys.stderr)
 
-    expiry = datetime.now(timezone.utc) + timedelta(days=args.days)
+    expiry = datetime.now(UTC) + timedelta(days=args.days)
     sas = generate_container_sas(
         account_name=args.account,
         container_name=container,
@@ -80,8 +90,14 @@ def main():
     os.chmod(out, 0o600)
 
     print(f"SAS written (racwdl, expires {expiry.date()}): {out}", file=sys.stderr)
-    print(f"-> deliver this file SECURELY to '{args.student}'; they save it as ~/.azure/{container}.env (chmod 600).", file=sys.stderr)
-    print(f"-> set a reminder to regenerate before {expiry.date()}. The SAS is a bearer credential — do not print/commit it.", file=sys.stderr)
+    print(
+        f"-> deliver this file SECURELY to '{args.student}'; they save it as ~/.azure/{container}.env (chmod 600).",
+        file=sys.stderr,
+    )
+    print(
+        f"-> set a reminder to regenerate before {expiry.date()}. The SAS is a bearer credential — do not print/commit it.",
+        file=sys.stderr,
+    )
     print(container)  # stdout: container name (for scripting)
 
 

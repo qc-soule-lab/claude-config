@@ -1,0 +1,11 @@
+# qc-soule-lab ruff config (see CLAUDE.md "Pythonic Conventions").
+# Mirrors the [tool.ruff] block shipped in pyproject.student.example.toml.
+line-length = 100
+target-version = "py312"
+extend-include = ["azure_lake"]   # lab CLI script that has no .py extension
+
+[lint]
+# pycodestyle (E) + pyflakes (F) + isort (I) + pyupgrade (UP) + bugbear (B)
+select = ["E", "F", "I", "UP", "B"]
+# `ruff format` owns code line length; E501 only nags unavoidable long strings/URLs/messages.
+ignore = ["E501"]

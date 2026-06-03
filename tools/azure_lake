@@ -18,15 +18,17 @@ account-wide total across all containers, sum them with the storage account key.
 Multi-container support (future): pass --sas-url to override $AZURE_BLOB_SAS_URL,
 or set per-container env vars and pass --env AZURE_SAS_BRAVOSEIS.
 """
+
 import argparse
 import os
 import sys
 from pathlib import Path
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import parse_qs, urlparse
 
 
 def get_client(sas_url):
     from azure.storage.blob import ContainerClient
+
     return ContainerClient.from_container_url(sas_url)
 
 
@@ -104,9 +106,17 @@ def cmd_info(args, sas_url):
     parts = urlparse(sas_url)
     container = parts.path.lstrip("/")
     q = parse_qs(parts.query)
-    perm_map = {"r": "read", "a": "add", "c": "create", "w": "write",
-                "d": "delete", "l": "list", "t": "tag", "i": "immutable",
-                "y": "permdelete"}
+    perm_map = {
+        "r": "read",
+        "a": "add",
+        "c": "create",
+        "w": "write",
+        "d": "delete",
+        "l": "list",
+        "t": "tag",
+        "i": "immutable",
+        "y": "permdelete",
+    }
     sp = q.get("sp", [""])[0]
     print(f"account:     {parts.hostname.split('.')[0]}")
     print(f"container:   {container}")
@@ -117,18 +127,20 @@ def cmd_info(args, sas_url):
 
 
 def main():
-    p = argparse.ArgumentParser(prog="azure_lake", description=__doc__,
-                                formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--sas-url", default=None,
-                   help="container SAS URL (default: $AZURE_BLOB_SAS_URL)")
+    p = argparse.ArgumentParser(
+        prog="azure_lake", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    p.add_argument(
+        "--sas-url", default=None, help="container SAS URL (default: $AZURE_BLOB_SAS_URL)"
+    )
     sub = p.add_subparsers(dest="cmd", required=True)
 
     up = sub.add_parser("upload", help="upload a local file to the container")
     up.add_argument("local_path")
-    up.add_argument("--blob-name", default=None,
-                    help="blob name (default: local file basename)")
-    up.add_argument("--overwrite", action="store_true",
-                    help="overwrite if blob exists (default: error)")
+    up.add_argument("--blob-name", default=None, help="blob name (default: local file basename)")
+    up.add_argument(
+        "--overwrite", action="store_true", help="overwrite if blob exists (default: error)"
+    )
     up.set_defaults(func=cmd_upload)
 
     dn = sub.add_parser("download", help="download a blob to a local path")
@@ -142,8 +154,9 @@ def main():
 
     du = sub.add_parser("du", help="total size + blob count for this container (or a prefix)")
     du.add_argument("--prefix", default=None, help="only count blobs starting with PREFIX")
-    du.add_argument("--by-prefix", action="store_true",
-                    help="break down by top-level prefix (folder)")
+    du.add_argument(
+        "--by-prefix", action="store_true", help="break down by top-level prefix (folder)"
+    )
     du.set_defaults(func=cmd_du)
 
     rm = sub.add_parser("rm", help="delete a blob from the container")
@@ -157,8 +170,9 @@ def main():
 
     sas_url = args.sas_url or os.environ.get("AZURE_BLOB_SAS_URL")
     if not sas_url:
-        sys.exit("error: set $AZURE_BLOB_SAS_URL (source ~/.azure/<container>.env) "
-                 "or pass --sas-url")
+        sys.exit(
+            "error: set $AZURE_BLOB_SAS_URL (source ~/.azure/<container>.env) or pass --sas-url"
+        )
 
     if args.cmd == "info":
         cmd_info(args, sas_url)
