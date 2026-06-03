@@ -35,7 +35,16 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["pytest>=8.0"]       # CLAUDE.md requires `uv run pytest` before every commit
+dev = ["pytest>=8.0", "ruff>=0.6"]   # pytest (before every commit) + ruff (format+lint; see CLAUDE.md "Pythonic Conventions")
+
+# --- ruff: format + lint (Pythonic Conventions; see CLAUDE.md) ----------------
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+# pycodestyle (E) + pyflakes (F) + isort (I) + pyupgrade (UP) + bugbear (B)
+select = ["E", "F", "I", "UP", "B"]
 
 # --- GPU profile ONLY ---------------------------------------------------------
 # The default JupyterHub node has no GPU (nvidia-smi absent), so CPU torch is correct.

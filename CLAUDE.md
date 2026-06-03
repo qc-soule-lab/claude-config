@@ -55,6 +55,19 @@ If the user wants to exceed 24, they will say so explicitly ("use 48 workers", "
 
 Reason: predictable, scannable layouts; case-insensitive filesystems on macOS (APFS default) hide bugs that git's case-sensitive tracking later surfaces — a single lowercase convention eliminates the whole class.
 
+## Pythonic Conventions
+
+**Write idiomatic, PEP 8-compliant Python.** New code should read cleanly and follow standard idioms.
+
+- **Format + lint with `ruff`** — run `ruff format` and `ruff check` before committing (alongside `uv run pytest`). `ruff` is in the lab dev dependencies and configured in `pyproject.toml` (it replaces black/flake8/isort); don't hand-format around it.
+- **Type hints** on the signatures of shared or non-trivial functions (utilities, data transforms, calculations) — not required on quick notebooks or throwaway scripts.
+- **Docstrings** — a one-line summary (plus args/returns for non-obvious utilities) on modules and functions whose behavior isn't self-evident.
+- **Idioms** — prefer `pathlib` over `os.path`, f-strings over `%`/`str.format`, comprehensions and context managers (`with`) over manual loops/cleanup, and the standard library before adding a dependency.
+- **Layout** — packages use a `src/` layout with `pyproject.toml`; keep modules small and focused.
+- **Ethos (PEP 20)** — explicit over implicit, simple over complex, flat over nested, readability counts; apply it when writing and in `/code-review`.
+
+Applies to **new** code; don't churn/reformat existing files just to satisfy the linter unless you're already editing them (or asked to).
+
 ## Repos Layout
 
 Projects under `/Users/dax/repos/` are organized into buckets (adopted 2026-05-30):
