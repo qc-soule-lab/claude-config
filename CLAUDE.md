@@ -68,9 +68,27 @@ Reason: predictable, scannable layouts; case-insensitive filesystems on macOS (A
 
 Applies to **new** code; don't churn/reformat existing files just to satisfy the linter unless you're already editing them (or asked to).
 
+## Machine Landscape & Naming
+
+Work spans five machines. Refer to each by its **canonical tag** below, never by ambiguous terms like "the laptop" or "the Mac" — there are two laptops and three Macs, and loose terms have already caused memory to conflate them.
+
+| Tag | Machine | `$HOME` |
+|---|---|---|
+| **Hub** | OOI JupyterHub (Linux container) | `/home/jovyan` |
+| **iMac** | office desktop | `/Users/daxsoule` |
+| **MacBook** | laptop (authored most current memory notes) | `/Users/dax` |
+| **MacBookPro** | laptop | `/Users/dax` *(home name TBD — confirm on first use)* |
+| **DellPC** | Windows; Oasis Montaj / Geosoft host | `C:\Users\neand` |
+
+Rules:
+
+- **Paths under `$HOME` use `~`, not an absolute home dir.** The structure under `~` — especially `~/repos/<bucket>/...` — is identical on all three Macs, so `~/repos/forms_dev/qc_forms` is correct everywhere while `/Users/dax/...` or `/Users/daxsoule/...` is machine-specific and breaks when a note is read on another machine. Same for Dropbox: `~/Queens College Dropbox/...`.
+- **Tag any machine-specific fact** with its bracketed tag, e.g. `[iMac]`, `[DellPC]`. A fact true on only one machine must say which one. Hub paths (`/home/jovyan/...`) and DellPC paths (`C:\Users\neand\...`) are genuinely absolute — keep them, but tag them.
+- **bravoseis_orca_3d is [Hub]-only.** Do not clone it or pull its Azure payload onto the Macs.
+
 ## Repos Layout
 
-Projects under `/Users/dax/repos/` are organized into buckets (adopted 2026-05-30):
+Projects under `~/repos/` (identical bucket layout on iMac, MacBook, MacBookPro) are organized into buckets (adopted 2026-05-30):
 
 - `class_dev/` covers course development. Currently holds `geol-333-fall-2026`, `geol-393-fall-2026`, `geol-795-makayla-fall-2026`, `ocean540_guest_lecture`.
 - `forms_dev/` covers university forms and paperwork. Currently holds `qc_forms`.
