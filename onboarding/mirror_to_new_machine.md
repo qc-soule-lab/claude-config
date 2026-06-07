@@ -23,7 +23,7 @@ When migrating memory or any file that hardcodes paths, translate the source `$H
 3. Repos under `~/repos/` organized into five buckets:
    - `class_dev/` — course development (currently: `geol-333-fall-2026`, `geol-393-fall-2026`, `geol-795-makayla-fall-2026`, `ocean540_guest_lecture`).
    - `forms_dev/` — university forms (currently: `qc_forms`).
-   - `loc_science_dev/` — local-machine science (currently: `bravoseis_orca_3d`, `ctdMAB_my-analysis`, `joseph-scaleworm-thesis`).
+   - `loc_science_dev/` — local-machine science (currently on Mac: `ctdMAB_my-analysis`, `joseph-scaleworm-thesis`; `bravoseis_orca_3d` lives at this same bucket path on the Hub but the actual analysis runs on JupyterHub, so do not clone it on a Mac by default).
    - `meeting_dev/` — meeting prep (currently: `OOIFB_May2026_Plan`, local-only).
    - `report_dev/` — formal reports (currently: `expense_reports`, `sabbatical_reports`).
    - Plus `claude-config` and `dotfiles` at the `repos/` root (infra).
@@ -101,7 +101,10 @@ cd ~/repos/forms_dev
 cd ~/repos/loc_science_dev
 [ -d ctdMAB_my-analysis ] || git clone git@github.com:daxsoule/ctdMAB_my-analysis.git
 [ -d joseph-scaleworm-thesis ] || git clone git@github.com:qc-soule-lab/joseph-scaleworm-thesis.git
-[ -d bravoseis_orca_3d ] || git clone git@github.com:qc-soule-lab/bravoseis_orca_3d.git
+# bravoseis_orca_3d: Hub-primary (the actual science work runs on JupyterHub
+# at /home/jovyan/repos/loc_science_dev/bravoseis_orca_3d). Do NOT clone on a
+# Mac unless you have a specific local use case; the Mac is not where this
+# project's analysis runs.
 
 cd ~/repos/report_dev
 [ -d expense_reports ] || git clone git@github.com:daxsoule/expense_reports.git
