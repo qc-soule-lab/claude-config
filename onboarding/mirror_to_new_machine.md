@@ -71,7 +71,7 @@ grep -r "/Users/dax/" . | head   # should print nothing
 ```bash
 mkdir -p ~/repos && cd ~/repos
 if [ ! -d claude-config ]; then
-  git clone git@github.com:daxsoule/claude-config.git
+  git clone git@github.com:qc-soule-lab/claude-config.git
 else
   cd claude-config && git pull --ff-only && cd ..
 fi
