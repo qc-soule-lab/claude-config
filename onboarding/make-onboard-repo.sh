@@ -39,7 +39,7 @@ case "$ROLE" in
   collaborator) TPL="$CFG/onboarding/templates/onboard-collaborator";;
   *) echo "error: --role must be 'student' or 'collaborator'" >&2; exit 2;;
 esac
-OUT="$HOME/repos/onboard-$SLUG"
+OUT="$HOME/repos/onboarding_dev/onboard-$SLUG"
 
 [ -d "$OUT" ] && { echo "error: $OUT already exists" >&2; exit 1; }
 cp -r "$TPL" "$OUT"
