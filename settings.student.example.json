@@ -69,6 +69,18 @@
           }
         ]
       }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/jovyan/.claude/bin/precompact-summary-contract.sh",
+            "timeout": 5
+          }
+        ]
+      }
     ]
   }
 }

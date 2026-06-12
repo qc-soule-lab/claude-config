@@ -127,6 +127,24 @@ When creating a new repo, place it under the bucket that matches its purpose. Bu
 
 **Crash resilience is the priority.** Assume the session can die at any moment — if a new session started right now, would memory accurately describe what's done and what's next? Update proactively, not at the end. A `PostToolUse(Bash(git commit:*))` hook injects a reminder after every commit; also update on blockers, status changes, "I'm leaving" signals, and milestones. Keep MEMORY.md indexes in sync; delete stale memories rather than letting them accumulate.
 
+## Context & Compaction Practices
+
+**Memory is the durable state; compaction summaries are lossy.** The defense against losing
+state is not compacting earlier — it is keeping memory current so a compaction (or crash)
+cannot hurt. Concretely:
+
+- **On any context-low warning, stop and checkpoint memory before continuing work** — running
+  jobs (PIDs, logs, ETAs, resume commands), uncommitted repo state, next action.
+- **Prefer `/clear` at a natural task boundary (with memory current) over mid-task `/compact`**
+  — a clean re-read of memory beats a degraded summary. Suggest `/compact` to the user only at
+  natural pauses in genuinely long sessions; Claude cannot run it itself.
+- A `PreCompact` hook injects the lab's **summary contract** into every compaction (manual or
+  auto), pinning what the summary must preserve; the first action after any compaction is to
+  re-read MEMORY.md and reconcile.
+- Do **not** compact on a schedule or at a fixed fraction of context: the threshold isn't
+  configurable, the model has no token counter to act on, and early repeated compaction
+  compounds information loss for no benefit (auto-compact already handles the true limit).
+
 ## Ethical Check Standard
 
 **Prevent early, not remediate late.** Invoke the **`ethical-check`** skill before introducing new literature/data, producing prose for human reading, regenerating a figure that resembles a published one, committing/pushing/sharing outputs externally, WebFetching external sources, or when tempted to fudge a result (outlier drops, post-hoc thresholds, memory-based paraphrasing). Skill covers the 7-point check (provenance, license/TOS, PII, embargo, attribution, reproducibility, blast radius) and the publisher PDF / AI-disclosure / literature-handling hard rules. A `PreToolUse(WebFetch)` hook surfaces the same reminder whenever a URL matches a publisher or DOI-resolver domain.

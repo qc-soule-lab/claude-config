@@ -59,6 +59,18 @@
           }
         ]
       }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/bin/precompact-summary-contract.sh",
+            "timeout": 5
+          }
+        ]
+      }
     ]
   }
 }
