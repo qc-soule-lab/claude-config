@@ -5,32 +5,28 @@ description: Use when creating or evaluating cartographic/map figures. Provides 
 
 # Map Figure Rubric
 
-When creating or reviewing a map figure, apply ALL of the following criteria. Also follow the shared standards in `~/.claude/skills/figure-standards/shared-standards.md` (sizing tiers, caption technique, colorblind palette, provenance, multi-panel labels).
+*Rubric v1.1 (2026-06-12) — anchored acceptance thresholds. Canonical copy: `claude-config/skills/map-figure/SKILL.md`; project copies (e.g. `scaleworm-student-lab/specs/rubrics/`) point here.*
+
+When creating or reviewing a map figure, apply ALL of the following criteria. Also follow the shared standards in `~/.claude/skills/figure-standards/shared-standards.md` (sizing tiers, caption technique, colorblind palette, provenance, multi-panel labels). **Score each criterion against its anchor — the anchor decides, not overall impression.**
 
 ## Criteria
 
-| # | Element | Required | Acceptance Standard |
+| # | Element | Required | Acceptance Standard (anchor) |
 |---|---------|----------|---------------------|
 | 1 | **Coordinate Reference** | Yes | Lat/lon labels on axes or gridlines. |
-| 2 | **Scale Bar** | Yes | Labeled distance in appropriate units (m or km). True meters when using a metric projection. |
+| 2 | **Scale Bar** | Yes | Labeled bar spanning **10–20% of map width**, metric units (m or km), round number (1/2/5×10ⁿ). True meters when using a metric projection. |
 | 3 | **North Arrow** | Yes | Arrow with "N" label. |
-| 4 | **Classification Legend** | If applicable | All color-coded symbols explained. |
-| 5 | **Depth/Value Colorbar** | If continuous shading shown | Colorbar with labeled quantity and unit (e.g., "Depth (m)"). |
-| 6 | **Neatline Border** | Recommended | Alternating black/white ladder border. Required for poster-tier maps; optional for paper/presentation tier. Projects may override in constitution. |
-| 7 | **Title** | Yes | Concise; technical details deferred to caption. Font size per sizing tier. |
-| 8 | **Figure Caption** | Yes | Renderer-based fully justified (see shared standards). States data source with collection year. No orphaned lines. |
-| 9 | **Label Legibility** | Yes | Feature labels meet sizing tier minimum. No overlapping labels. |
-| 10 | **Resolution/Format** | Yes | PNG at minimum DPI for the declared sizing tier. |
-| 11 | **Projection Info** | Yes | Coordinate system explicitly stated in caption or on map (e.g., "UTM Zone 10N", "WGS84"). The PI specifies the projection; it is never assumed. |
-| 12 | **Colorblind Safety** | Yes | Okabe-Ito or equivalent palette. All distinctions perceivable under deuteranopia/protanopia. |
-| 13 | **Data Provenance** | Yes | Caption or annotation cites data source and collection/publication year (e.g., "Bathymetry from 1 m AUV survey, MBARI 2025"). |
+| 4 | **Classification Legend** | If applicable | Every color-coded symbol on the map appears in the legend; zero unexplained symbols. |
+| 5 | **Depth/Value Colorbar** | If continuous shading shown | Colorbar with labeled quantity and unit (e.g., "Depth (m)"). Unlabeled colorbar = FAIL. |
+| 6 | **Neatline Border** | Poster tier | Alternating black/white ladder border. **Required at poster tier; optional at paper/presentation tier** unless the project constitution says otherwise. |
+| 7 | **Title** | Yes | Concise; technical details deferred to caption. Font size ≥ sizing-tier minimum. |
+| 8 | **Figure Caption** | Yes | Fully justified (see shared standards). States data source with collection year. No orphaned line (= a single word alone on the final line). |
+| 9 | **Label Legibility** | Yes | Every feature label ≥ sizing-tier minimum font; **≥ 2 pt clearance between labels** — touching/overlapping labels FAIL unless they differ in both color and weight. *PASS example: 10 pt labels, 4 features, visibly separated. FAIL example: two 8 pt labels touching.* |
+| 10 | **Resolution/Format** | Yes | PNG at ≥ the declared sizing tier's minimum DPI. |
+| 11 | **Projection Info** | Yes | Coordinate system named **in the caption, on the map, or both** (e.g., "UTM Zone 10N", "WGS84") — at least one, and the project constitution may require both. The PI specifies the projection before plotting; it is never assumed. |
+| 12 | **Colorblind Safety** | Yes | Okabe-Ito (discrete) / viridis (continuous) / cmocean (oceanographic), or a named equivalent (IBM, Paul Tol). All distinctions perceivable under deuteranopia/protanopia. |
+| 13 | **Data Provenance** | Yes | Caption or annotation cites data source and collection/publication year (e.g., "Bathymetry from 1 m AUV survey, MBARI 2025"). Derived products cite the processing chain or sibling project. |
 | 14 | **Multi-Panel Labels** | If multi-panel | Panels labeled consistently at standard position and font size. |
-
-## Key Conventions
-
-- **Projection**: The coordinate system must be explicitly identified by the PI before use. Never assume a projection — always confirm first.
-- **Neatline**: Required at poster tier, recommended otherwise. Alternating black/white ladder style.
-- **Provenance**: At minimum, name the dataset and its year. For derived products, cite the processing chain or sibling project.
 
 ## Scorecard Template
 

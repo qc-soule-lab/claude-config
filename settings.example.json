@@ -31,6 +31,21 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Bash(git commit:*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/bin/check-no-secrets-precommit.sh",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.claude/bin/pre-commit-gate.sh",
+            "timeout": 300
+          }
+        ]
       }
     ],
     "PostToolUse": [

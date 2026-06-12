@@ -10,21 +10,21 @@ Each project constitution declares which tier applies. All font sizes are minimu
 | **Paper** | Journal figures, reports | >= 14pt | >= 10pt | >= 8pt | >= 1pt | 300 |
 | **Presentation** | Slides, screen display | >= 20pt | >= 14pt | >= 12pt (ticks) / >= 10pt (features) | >= 1.5pt | 150 |
 
-## Caption Technique: Renderer-Based Full Justification
+## Caption Technique: Full Justification
 
-All figure captions use renderer-based full justification in a dedicated axes region below the plot. Sans-serif font.
+**Requirement (renderer-agnostic):** captions are fully justified in a dedicated region below the plot, last line left-aligned, with **no orphaned line** (an orphaned line = a single word alone on the final line; fix by adjusting caption width or text length). Font size per sizing tier.
 
-Technique:
+**Font:** human-authored captions use sans-serif. **AI-generated caption text uses monospace (Courier New) and starts with the prefix `"AI-generated caption (Claude, Anthropic) — "`** per global CLAUDE.md → AI-Generated Text Disclosure — the disclosure rule overrides the sans-serif default.
+
+**Matplotlib implementation** (other renderers: use native justification + manual orphan check):
 1. Wrap text to fit available width using approximate character widths.
 2. For each line except the last, measure each word's pixel width via `get_window_extent(renderer)`.
 3. Distribute remaining horizontal space as equal gaps between words.
 4. Left-align the last line.
 
-No orphaned lines. Font size per sizing tier.
-
 ## Colorblind Safety
 
-All color distinctions must be perceivable under deuteranopia/protanopia. Use the Okabe-Ito palette or equivalent colorblind-safe palette.
+All color distinctions must be perceivable under deuteranopia/protanopia. Named acceptable palettes: **Okabe-Ito** (discrete), **viridis/cividis** (continuous), **cmocean** (oceanographic), **IBM Carbon** or **Paul Tol** schemes as equivalents. "Equivalent" means a published colorblind-tested palette — not an eyeballed custom one.
 
 ## Data Provenance
 

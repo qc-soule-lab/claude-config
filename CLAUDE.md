@@ -43,6 +43,20 @@ If the user wants to exceed 24, they will say so explicitly ("use 48 workers", "
 
 **General rule**: Match the tool to the audience. If someone will interact with the plot (explore data, hover for values, rotate 3D), use Plotly. If it goes in a paper or PDF, use matplotlib.
 
+**Color palettes** (colorblind-safe, always): **Okabe-Ito** for discrete/categorical series, **viridis** for continuous scalars, **cmocean** for oceanographic maps (`cmocean.deep`/`haline` for bathymetry/salinity). All distinctions must survive deuteranopia/protanopia.
+
+## Scientific Quality Standards
+
+Two principles promoted from project constitutions (magma2vents, noaa_bravoseis) to lab-wide rules:
+
+**No Borrowed Assumptions.** Every filter, smoothing choice, threshold, picker, association window, and aggregation must be explicitly justified **for the specific dataset it is applied to** — never carried over from another dataset, project, or paper because "it worked there." When reusing a sibling project's QC convention, re-verify it against the new data and record the verification. (The lab has been burned by silently inherited de-tided products and copied thresholds.)
+
+**Defensible Statistics.** Every quantitative claim reports its uncertainty: confidence intervals alongside point estimates; effect sizes alongside p-values; bootstrap conventions stated (n resamples, seed, percentile method); independence assumptions disclosed when methods require them. A number without an uncertainty is an anecdote.
+
+## Collaboration
+
+Communicate about collaborators and prior work with collegial professionalism: frame analytical differences as **complementary approaches** or **added value**, never as criticism of someone's work; cite collaborators generously; raise disagreements with the PI privately before they appear in any shared artifact.
+
 ## Naming Conventions
 
 **All new directories and files use `snake_case` lowercase.** Examples: `lesson_plans/`, `week_03_least_squares/`, `data_loader.py`, `provenance_notes.md`, `figure_01_overview.png`. This matches PEP 8 for Python and stays consistent across the data/science stack.
