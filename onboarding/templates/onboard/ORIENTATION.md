@@ -67,4 +67,14 @@ Open the project repo's `CLAUDE.md` and summarize the non-negotiables in plain l
 ### 7. First branch → PR (prove the workflow)
 Help them create a throwaway branch, make a trivial change, commit (pytest first), push, and open a PR — so they've done one full cycle before real work.
 
-**End state:** bootstrapped env, project repo cloned, `azure_lake info` works, `science-specify check` passes, they understand the rules, and they've completed one branch→PR. Then they work in the **project repo**, not this onboarding repo.
+**End state:** bootstrapped env, project repo cloned, `azure_lake info` works, `science-specify check` passes, they understand the rules, and they've completed one branch→PR.
+
+### 8. Hand off to the onramp (the science curriculum)
+Before project work, they take the lab's guided curriculum — "From the map to the tidal signal":
+```bash
+cd ~ && git clone -b 001-coding-onramp-v1 https://github.com/qc-soule-lab/student-onramp.git
+cd student-onramp && uv sync && claude
+```
+In that Claude session: `/model claude-sonnet-4-6`, then type **`assess me`**. It assesses, builds
+them a personal plan, and teaches the slice (it saves progress — `continue` resumes any time).
+When the onramp's bridge note lands, they're ready for real work in the **project repo**.
