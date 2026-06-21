@@ -1,0 +1,8 @@
+{
+  "_README": "Per-course page map for the shared Brightspace pusher (~/repos/claude-config/tools/brightspace_push.py). Copy this into the course repo as scripts/brightspace_pages.json (gitignored there), and fill each value with that page's Brightspace EDIT url (open the topic, click Edit, copy the address-bar URL). The KEY matches the rendered html filename without .html in that course's --html-dir. Delete this _README line and any rows you do not use.",
+  "module0_overview": "",
+  "module1_overview": "",
+  "page_wk1": "",
+  "page_wk2": "",
+  "page_wk6": ""
+}
