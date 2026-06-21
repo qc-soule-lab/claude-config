@@ -20,6 +20,7 @@ per course you pass --html-dir and --pages-map.
 NOTE: glue flags to their values with '=' (e.g. --url=https://...), a stray space from a copy
 can detach the value. macOS clipboard (pbcopy). Requires system Google Chrome.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -75,9 +76,16 @@ def cmd_discover(url: str, headless: bool) -> None:
         print(f"page title:    {pg.title()}")
         print(f"authenticated: {'YES' if ok else 'NO (still at login)'}")
         if ok:
+            pg.wait_for_timeout(1500)
+            try:  # nudge lazy-loaded modules into the DOM
+                pg.mouse.wheel(0, 4000)
+                pg.wait_for_timeout(1000)
+            except Exception:
+                pass
+            # content links (topics; Playwright CSS pierces D2L's open shadow DOM)
             items: list[tuple[str, str]] = []
             seen: set[str] = set()
-            for a in pg.locator("a[href*='/content/']").all():  # Playwright CSS pierces open shadow DOM
+            for a in pg.locator("a[href*='/content/']").all():
                 try:
                     href = a.get_attribute("href") or ""
                     txt = (a.text_content() or "").strip()
@@ -86,9 +94,23 @@ def cmd_discover(url: str, headless: bool) -> None:
                 if txt and href and href not in seen:
                     seen.add(href)
                     items.append((txt, href))
-            print(f"\ncontent links found ({len(items)}):")
+            print(f"\ncontent links ({len(items)}):")
             for txt, href in items:
-                print(f"  - {txt[:72]:<72}  {href}")
+                print(f"  - {txt[:70]:<70}  {href}")
+            # module + unit titles are usually headings in D2L, not links
+            heads: list[str] = []
+            hseen: set[str] = set()
+            for h in pg.locator("h1, h2, h3, h4").all():
+                try:
+                    t = (h.text_content() or "").strip()
+                except Exception:
+                    continue
+                if t and t not in hseen:
+                    hseen.add(t)
+                    heads.append(t)
+            print(f"\nheadings / module + unit titles ({len(heads)}):")
+            for t in heads[:80]:
+                print(f"  - {t[:96]}")
         ctx.close()
 
 
@@ -125,19 +147,25 @@ def cmd_push(html_dir: str, pages_map: str, keys: list[str], auto: bool) -> None
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Brightspace reader/pusher via a logged-in browser (no API key).")
+    ap = argparse.ArgumentParser(
+        description="Brightspace reader/pusher via a logged-in browser (no API key)."
+    )
     sub = ap.add_subparsers(dest="cmd", required=True)
     lp = sub.add_parser("login")
     lp.add_argument("--base-url", required=True)
     dp = sub.add_parser("discover")
     dp.add_argument("--url", required=True)
-    dp.add_argument("--headless", action="store_true", help="(rarely works for CUNY SSO; default is headed)")
+    dp.add_argument(
+        "--headless", action="store_true", help="(rarely works for CUNY SSO; default is headed)"
+    )
     up = sub.add_parser("push")
     up.add_argument("--html-dir", required=True)
     up.add_argument("--pages-map", required=True)
     up.add_argument("--page", action="append", default=[])
     up.add_argument("--all", action="store_true")
-    up.add_argument("--auto", action="store_true", help="(reserved; assisted paste is the current mode)")
+    up.add_argument(
+        "--auto", action="store_true", help="(reserved; assisted paste is the current mode)"
+    )
     a = ap.parse_args()
     if a.cmd == "login":
         with sync_playwright() as p:
