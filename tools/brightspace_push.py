@@ -111,6 +111,21 @@ def cmd_discover(url: str, headless: bool) -> None:
             print(f"\nheadings / module + unit titles ({len(heads)}):")
             for t in heads[:80]:
                 print(f"  - {t[:96]}")
+            # navbar / top course menu, in DOM order (roughly left to right)
+            nav: list[str] = []
+            nseen: set[str] = set()
+            for a in pg.locator("nav a[href], [role='navigation'] a[href]").all():
+                try:
+                    t = " ".join((a.text_content() or "").split())
+                    href = a.get_attribute("href") or ""
+                except Exception:
+                    continue
+                if t and t not in nseen:
+                    nseen.add(t)
+                    nav.append(f"{t}  ->  {href}")
+            print(f"\nnavbar links, left to right ({len(nav)}):")
+            for n in nav:
+                print(f"  - {n}")
         ctx.close()
 
 
