@@ -98,7 +98,7 @@ Rules:
 
 - **Paths under `$HOME` use `~`, not an absolute home dir.** The structure under `~` — especially `~/repos/<bucket>/...` — is identical on all three Macs, so `~/repos/forms_dev/qc_forms` is correct everywhere while `/Users/dax/...` or `/Users/daxsoule/...` is machine-specific and breaks when a note is read on another machine. Same for Dropbox: `~/Queens College Dropbox/...`.
 - **Tag any machine-specific fact** with its bracketed tag, e.g. `[iMac]`, `[DellPC]`. A fact true on only one machine must say which one. Hub paths (`/home/jovyan/...`) and DellPC paths (`C:\Users\neand\...`) are genuinely absolute — keep them, but tag them.
-- **bravoseis_orca_3d is [Hub]-only.** Do not clone it or pull its Azure payload onto the Macs.
+- **bravoseis_orca_3d: code anywhere, data on Azure.** The git repo may be cloned/pulled on any machine (it tracks no data — verified 2026-07-06; master pytest passes on the MacBook). The data payload stays in the Azure `bravoseis` container: never bulk-download it to the Macs; local `data/` trees are gitignored working copies. Montaj/gxpy legs remain [DellPC]. (Replaces the earlier "[Hub]-only" rule — Dax, 2026-07-06. Lives at `~/repos/loc_science_dev/bravoseis_orca_3d`.)
 
 ## Repos Layout
 
@@ -108,7 +108,7 @@ Projects under `~/repos/` (identical bucket layout on iMac, MacBook, MacBookPro)
 - `forms_dev/` covers university forms and paperwork. Currently holds `qc_forms`.
 - `loc_science_dev/` covers science work that runs on a local machine (as opposed to OOI or other cloud servers). Currently holds `ctdMAB_my-analysis`, `joseph-scaleworm-thesis`.
 - `meeting_dev/` covers meeting prep, talks, and briefings. Currently holds `OOIFB_May2026_Plan`.
-- `report_dev/` covers formal reports and written deliverables (expense, NSF project, multi-position, sabbatical, annual eval). Holds scripts only; final reports and receipts live in Dropbox, not git. Currently holds `expense_reports`, `sabbatical_reports`.
+- `report_dev/` covers formal reports and written deliverables (expense, NSF project, multi-position, sabbatical, annual eval). Holds scripts only; final reports and receipts live in Dropbox, not git. Currently holds `expense_reports`, `sabbatical_reports`, `nsf_project_reports`.
 
 Two infra dirs stay at the `repos/` root: `claude-config` (Claude settings; this file lives there) and `dotfiles` (shell + editor configs).
 
