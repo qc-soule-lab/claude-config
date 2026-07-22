@@ -108,7 +108,7 @@ Projects under `~/repos/` (identical bucket layout on iMac, MacBook, MacBookPro)
 - `forms_dev/` covers university forms and paperwork. Currently holds `qc_forms`.
 - `loc_science_dev/` covers science work that runs on a local machine (as opposed to OOI or other cloud servers). Currently holds `ctdMAB_my-analysis`, `joseph-scaleworm-thesis`.
 - `meeting_dev/` covers meeting prep, talks, and briefings. Currently holds `OOIFB_May2026_Plan`.
-- `proposal_dev/` covers grant-proposal development, organized by year then proposal (`proposal_dev/<year>/<proposal_slug>/`, each proposal its own git repo). Currently holds `2026/nsf26_512_ai_datasets` (NSF 26-512 "AI Datasets", deadline 2026-11-04).
+- `proposal_dev/` covers grant-proposal development, organized by year then proposal (`proposal_dev/proposals_<year>/<proposal_slug>/`, each proposal its own git repo; the year dir carries the `proposals_` prefix — bare `2026/` was judged regrettable, Dax 2026-07-22). Currently holds `proposals_2026/nsf26_512_ai_datasets` (NSF 26-512 "AI Datasets", deadline 2026-11-04) and `proposals_2026/grti26_seismic_expansion` (CUNY GRTI equipment request).
 - `report_dev/` covers formal reports and written deliverables (expense, NSF project, multi-position, sabbatical, annual eval). Holds scripts only; final reports and receipts live in Dropbox, not git. Currently holds `expense_reports`, `sabbatical_reports`, `nsf_project_reports`.
 
 Two infra dirs stay at the `repos/` root: `claude-config` (Claude settings; this file lives there) and `dotfiles` (shell + editor configs).
