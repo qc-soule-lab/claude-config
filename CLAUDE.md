@@ -33,6 +33,14 @@ If the user wants to exceed 24, they will say so explicitly ("use 48 workers", "
 - This does **not** apply to: code, code comments, commit messages, file names, or short inline labels (e.g., axis titles, legend entries).
 - If the user edits the text substantially, they may remove or modify the disclosure at their discretion.
 
+## No Personality in AI Prose
+
+**AI-drafted prose carries no personality — personality exists only in words Dax writes.** (Promoted from project practice to lab-wide rule, 2026-07-28, Orca S1 review; extends the 2026-07-22 story-document ruling.)
+
+- Flat, factual register throughout: no campy or cute phrasing, no rhetorical flourishes or antitheses ("a ceiling, not a measurement"), no anthropomorphism ("gravity sees", "grades its own homework", "the analysis could not soften its criteria"), no dramatic verbs ("fired", "beat"), no conversational openers ("So...").
+- Applies to all AI-drafted prose for human readers: documents, figure titles and captions, notebook markdown, review packets, slide-substitute handouts.
+- Same rule for reader-facing structure: never expose internal codenames (T-numbers, D-numbers, register names) or process/gating language that scripts what a reader must do — state the science and its receipts; Dax controls process.
+
 ## Package Preferences for Outputs
 
 **Data visualization**:
