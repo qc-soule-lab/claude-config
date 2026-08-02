@@ -1,4 +1,34 @@
 {
+  "permissions": {
+    "deny": [
+      "Read(**/_EMBARGOED_do_not_access/**)",
+      "Edit(**/_EMBARGOED_do_not_access/**)",
+      "Glob(**/_EMBARGOED_do_not_access/**)",
+      "Grep(**/_EMBARGOED_do_not_access/**)",
+      "Read(**/_NONPUBLIC_copilot_only/**)",
+      "Edit(**/_NONPUBLIC_copilot_only/**)",
+      "Glob(**/_NONPUBLIC_copilot_only/**)",
+      "Grep(**/_NONPUBLIC_copilot_only/**)",
+      "Read(**/EmployeeInfo/**)",
+      "Edit(**/EmployeeInfo/**)",
+      "Glob(**/EmployeeInfo/**)",
+      "Grep(**/EmployeeInfo/**)",
+      "Read(**/TenureFile/**)",
+      "Edit(**/TenureFile/**)",
+      "Glob(**/TenureFile/**)",
+      "Grep(**/TenureFile/**)"
+    ]
+  },
+  "sandbox": {
+    "filesystem": {
+      "denyRead": [
+        "**/_EMBARGOED_do_not_access/**",
+        "**/_NONPUBLIC_copilot_only/**",
+        "**/EmployeeInfo/**",
+        "**/TenureFile/**"
+      ]
+    }
+  },
   "hooks": {
     "SessionStart": [
       {
@@ -44,6 +74,26 @@
             "type": "command",
             "command": "$HOME/.claude/bin/pre-commit-gate.sh",
             "timeout": 300
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/bin/copilot-firewall-bash.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Edit|Write|Glob|Grep|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/bin/copilot-firewall-notice.sh",
+            "timeout": 5
           }
         ]
       }
