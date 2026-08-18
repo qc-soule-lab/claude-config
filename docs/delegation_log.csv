@@ -1,0 +1,13 @@
+date,machine,repo,task,orchestrator_model,implementer_model,task_type,outcome,defect_class,defect_owner,caught_by,rounds_to_green,notes
+# One row per resolved delegation. Quote any field containing a comma.
+# machine: Hub | iMac | MacBook | MacBookPro | DellPC
+# task_type: mechanical | mixed | judgment_heavy
+# outcome: clean | defect | abandoned  (abandoned = specifying cost more than doing it)
+# defect_class: e.g. wrong_variable_name, geometry, borrowed_assumption, stats_unreported, license, provenance
+# defect_owner: implementer | orchestrator (bad spec, missing scouted fact, assumption passed down)
+# caught_by: implementer_assertions | orchestrator_verification | escaped_to_human | n/a
+2026-08-17,Hub,misoGoPro,geotiff_to_netcdf_export,fable,sonnet-5,mechanical,clean,,,n/a,1,"scouted facts in prompt: pixel-center coords, no xarray in venv"
+2026-08-17,Hub,misoGoPro,nav_track_statistics,fable,sonnet-5,mechanical,clean,,,n/a,1,"medians+IQR+n reported because prompt required it; disclosed clustering choice"
+2026-08-17,Hub,misoGoPro,survey_design_generator,fable,sonnet-5,mixed,defect,geometry,implementer,orchestrator_verification,2,"clearance checked at vertices (PASS) but path between vertices cut to 1.84 m vs 3.5 m required; fixed in one send-back with continuous sampling at <=0.25 m"
+2026-08-17,Hub,misoGoPro,oa_literature_hunt,fable,sonnet-5,mechanical,clean,,,n/a,1,"3-source license agreement protocol; rejects reported with reasons; orchestrator re-verified every accept"
+2026-08-17,Hub,misoGoPro,methods_brief_synthesis,fable,sonnet-5,mixed,clean,,,n/a,1,"AI-disclosure line carried verbatim in prompt"
