@@ -241,7 +241,23 @@ the week is to make it quotable, or to falsify it.
 - Pre-commit the decision rule before the week starts. Deciding on
   2026-08-25, while looking at the numbers, what would count as success is a
   post-hoc threshold, which is exactly what No Borrowed Assumptions exists
-  to prevent. **Decision rule: TBD, Dax to set.**
+  to prevent.
+
+### Decision rule (LOCKED by PI, 2026-08-18 — before any week-2 data)
+
+Continue the pattern as default practice if, over ≥10 logged delegations:
+
+1. **(a) zero defects `escaped_to_human`** — every defect was caught before
+   reaching the PI or a shipped artifact;
+2. **(b) every defect was caught by `orchestrator_verification`** — the
+   independent verify layer, not luck or the implementer's own assertions;
+3. **(c) ≤2 delegations `abandoned`** because specifying cost more than
+   doing the work directly.
+
+Any escaped defect = revert to hands-on for that task class pending a
+post-mortem logged in this file. If fewer than 10 delegations accumulate by
+2026-08-25, extend the window rather than judging on thin data — the rule
+binds at n≥10, not at the calendar date.
 
 ## Anti-patterns seen or narrowly avoided
 
