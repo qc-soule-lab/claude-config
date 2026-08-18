@@ -187,8 +187,15 @@ or defective, defect class, rounds to green) before quoting any rate.
   partial content, not an exception, so an unguarded orchestrator loop stops
   with no error raised. Occasional false positives on benign life-sciences
   work put the scaleworm material in range. Branch on `stop_reason` before
-  reading `content`, and opt into `fallbacks` so a decline re-runs on Opus 5
-  inside the same call.
+  reading `content` (with `stop_details.category` saying which classifier),
+  and opt into server-side fallbacks so a decline re-runs on **Opus 4.8**
+  (`claude-opus-4-8` — the only supported fallback target; "Opus 5" does not
+  exist) inside the same call: beta `server-side-fallback-2026-06-01` +
+  `fallbacks: [{"model": "claude-opus-4-8"}]`. This applies to API-level
+  orchestration; Claude Code's own Agent tool handles subagent turns through
+  the harness. (This bullet originally named a nonexistent model — caught by
+  fact-checking against the API reference, a Rule 2 instance in the playbook
+  itself.)
 
 ## Open questions (unresolved after one session)
 
@@ -197,7 +204,12 @@ or defective, defect class, rounds to green) before quoting any rate.
   orchestrator's method. Candidates: an analytic bound worked out by hand, an
   independent reimplementation for paper-bound numbers, or a second verifier
   written against the specification rather than against the implementation.
-  None tested.
+  None tested. **Concrete instance found post-hoc (2026-08-18):** the
+  session's survey-design verifier sampled *leg-internal* segments only —
+  turn arcs between lawnmower lines were never clearance-checked. Benign in
+  that design (turns occur at the box edges, ~40+ m from any vent) but the
+  gap was unexamined at verify time; a spec-derived verifier ("every path
+  point ≥3.5 m from every vent") would not have had the blind spot.
 - **Which model tier for which mechanical task?** The playbook says "a
   cheaper model" throughout, and every delegation this session used Sonnet 5.
   Haiku 4.5 is plausibly sufficient for renders, format conversions, and
