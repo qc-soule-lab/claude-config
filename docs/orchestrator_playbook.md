@@ -189,13 +189,17 @@ or defective, defect class, rounds to green) before quoting any rate.
   work put the scaleworm material in range. Branch on `stop_reason` before
   reading `content` (with `stop_details.category` saying which classifier),
   and opt into server-side fallbacks so a decline re-runs on **Opus 4.8**
-  (`claude-opus-4-8` — the only supported fallback target; "Opus 5" does not
-  exist) inside the same call: beta `server-side-fallback-2026-06-01` +
+  (`claude-opus-4-8`, the documented fallback target for both Fable 5 and
+  Opus 5 refusals; Claude Opus 5 is a real model, it is simply not itself a
+  supported target) inside the same call: beta
+  `server-side-fallback-2026-06-01` +
   `fallbacks: [{"model": "claude-opus-4-8"}]`. This applies to API-level
   orchestration; Claude Code's own Agent tool handles subagent turns through
-  the harness. (This bullet originally named a nonexistent model — caught by
-  fact-checking against the API reference, a Rule 2 instance in the playbook
-  itself.)
+  the harness. (This bullet originally named the wrong fallback target, Opus 5
+  where the documented target is Opus 4.8; caught by fact-checking against the
+  API reference, a Rule 2 instance in the playbook itself. A first correction
+  attributed the error to Opus 5 being nonexistent, which it is not; the
+  correct reason is that Opus 5 is not in Fable 5's allowed fallback set.)
 
 ## Open questions (unresolved after one session)
 

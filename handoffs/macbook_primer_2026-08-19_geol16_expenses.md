@@ -206,15 +206,16 @@ playbook. **The rule binds at n≥10, not at the calendar date**, so if fewer th
 10 delegations accumulate by 2026-08-25 the window extends rather than being
 judged on thin data.
 
-**One correction to carry.** Dax's commit `aa772b1` fixed a real error of
-Claude's: the server-side fallback target for a Fable 5 refusal is
-`claude-opus-4-8`, not Opus 5, and that part of the edit is right. The
-parenthetical claiming "Opus 5 does not exist" is not: **Claude Opus 5
-(`claude-opus-5`) is a real model** and is what the iMac session was running on.
-The reason 4.8 is correct there is that it is the documented fallback target for
-Fable 5, not that Opus 5 is fictional. Flagged to Dax; the playbook line is
-unchanged pending his call, so do not use that parenthetical to reject a
-`claude-opus-5` model ID.
+**One correction, now resolved in the playbook.** A chain of two errors landed on
+the refusal-fallback bullet and both are fixed as of this primer. Claude
+originally named **Opus 5** as the fallback target, which was wrong: the
+documented target is **`claude-opus-4-8`**. Dax's commit `aa772b1` fixed that
+correctly, but attributed the error to Opus 5 being nonexistent, which it is
+not. **Claude Opus 5 (`claude-opus-5`) is a real model** and was the running
+model for the whole iMac session. The actual reason 4.8 belongs there is that
+Opus 5 is not in Fable 5's allowed fallback set. Both the bullet and its
+self-referential Rule 2 note now say so. Do not "correct" `claude-opus-5` out of
+anything on the belief that it does not exist.
 
 ## One process note worth carrying
 
