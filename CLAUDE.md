@@ -100,6 +100,20 @@ Rules:
 - **Tag any machine-specific fact** with its bracketed tag, e.g. `[iMac]`, `[DellPC]`. A fact true on only one machine must say which one. Hub paths (`/home/jovyan/...`) and DellPC paths (`C:\Users\neand\...`) are genuinely absolute — keep them, but tag them.
 - **bravoseis_orca_3d is [Hub]-only.** Do not clone it or pull its Azure payload onto the Macs.
 
+## Hub JupyterLab — Do Not Touch the Collab/RTC Stack
+
+**[Hub] Never disable the JupyterLab collaboration / real-time-collab (RTC) stack via user-level config to work around a hang or loading loop.** The working state on this image is the **pristine system default**: no `~/.jupyter/labconfig/page_config.json`, no `~/.jupyter/jupyter_server_config.d/disable_server_documents.json`. Leave `~/.jupyter` clean and let `/opt/conda/etc/jupyter` apply.
+
+Reason: on this image the document provider is a **matched pair** — frontend `@jupyter-ai-contrib/server-documents` + backend `jupyter_server_documents` — where the frontend asks the backend for each file's ID. Disabling only the backend (the Aug-20 2026 `disable_server_documents.json` edit) left the frontend requesting IDs against a dead backend, producing *"file ID could not be retrieved"* on opening ANY notebook or `.sh`, and once locked the user out entirely. It is **expected and correct** that `jupyter_server_ydoc`, `@jupyter/docprovider-extension`, and some core `@jupyterlab/*` plugins show **disabled** — `server-documents` replaces them; that is not the bug.
+
+Rules when a `[*]`-forever hang, loading loop, or FileID error appears:
+- **Do not** add user-level `page_config.json` / `disable_server_documents.json` or otherwise flip collab extensions off. That is what caused the outage, not what fixes it.
+- **First prove kernel vs. RTC layer** headlessly (kernel is almost never the culprit): `start_new_kernel(kernel_name="scaleworm")` + execute `1+1`. Instant return ⇒ kernel healthy ⇒ the problem is the frontend/RTC/documents layer, so fixing kernel/config won't help — do a full server restart or escalate to the Hub admin.
+- **Verify server state** with `jupyter server extension list`: want `jupyter_server_documents` **enabled** and `jupyter_server_fileid` **enabled**.
+- **Config changes need a full Hub restart** (Control Panel ▸ Stop My Server ▸ Start My Server) — a browser reload does not reapply server config.
+
+See [[hub-rtc-kernel-hang]] in memory for the full incident and rollback path.
+
 ## Repos Layout
 
 Projects under `~/repos/` (identical bucket layout on iMac, MacBook, MacBookPro) are organized into buckets (adopted 2026-05-30):
