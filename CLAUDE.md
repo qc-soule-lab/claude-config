@@ -109,6 +109,20 @@ Rules:
 - **Student onboarding and student-project repos are [Hub]-only.** Repos like `student-onramp`, `onboard-<name>`, and `<name>-project` exist only on the OOI JupyterHub (`/home/jovyan`) — the group access venue where students actually work. Do not clone them on any Mac. Their absence from a Mac's `~/repos/` is correct, not a gap to fill. (Dax, 2026-08-01. As of that date: `student-onramp`, `onboard-natu-sumedh`, `onboard-anirudh-bodala`, `natu-sumedh-project`, `neftali-kratc-project`, `floc-project`, `misoGoPro`.)
 - **bravoseis_orca_3d: code anywhere, data on Azure.** The git repo may be cloned/pulled on any machine (it tracks no data — verified 2026-07-06; master pytest passes on the MacBook). The data payload stays in the Azure `bravoseis` container: never bulk-download it to the Macs; local `data/` trees are gitignored working copies. Montaj/gxpy legs remain [DellPC]. (Replaces the earlier "[Hub]-only" rule — Dax, 2026-07-06. Lives at `~/repos/loc_science_dev/bravoseis_orca_3d`.)
 
+## Hub JupyterLab — Do Not Touch the Collab/RTC Stack
+
+**[Hub] Never disable the JupyterLab collaboration / real-time-collab (RTC) stack via user-level config to work around a hang or loading loop.** The working state on this image is the **pristine system default**: no `~/.jupyter/labconfig/page_config.json`, no `~/.jupyter/jupyter_server_config.d/disable_server_documents.json`. Leave `~/.jupyter` clean and let `/opt/conda/etc/jupyter` apply.
+
+Reason: on this image the document provider is a **matched pair** — frontend `@jupyter-ai-contrib/server-documents` + backend `jupyter_server_documents` — where the frontend asks the backend for each file's ID. Disabling only the backend (the Aug-20 2026 `disable_server_documents.json` edit) left the frontend requesting IDs against a dead backend, producing *"file ID could not be retrieved"* on opening ANY notebook or `.sh`, and once locked the user out entirely. It is **expected and correct** that `jupyter_server_ydoc`, `@jupyter/docprovider-extension`, and some core `@jupyterlab/*` plugins show **disabled** — `server-documents` replaces them; that is not the bug.
+
+Rules when a `[*]`-forever hang, loading loop, or FileID error appears:
+- **Do not** add user-level `page_config.json` / `disable_server_documents.json` or otherwise flip collab extensions off. That is what caused the outage, not what fixes it.
+- **First prove kernel vs. RTC layer** headlessly (kernel is almost never the culprit): `start_new_kernel(kernel_name="scaleworm")` + execute `1+1`. Instant return ⇒ kernel healthy ⇒ the problem is the frontend/RTC/documents layer, so fixing kernel/config won't help — do a full server restart or escalate to the Hub admin.
+- **Verify server state** with `jupyter server extension list`: want `jupyter_server_documents` **enabled** and `jupyter_server_fileid` **enabled**.
+- **Config changes need a full Hub restart** (Control Panel ▸ Stop My Server ▸ Start My Server) — a browser reload does not reapply server config.
+
+See [[hub-rtc-kernel-hang]] in memory for the full incident and rollback path.
+
 ## Repos Layout
 
 Projects under `~/repos/` (identical bucket layout on iMac, MacBook, MacBookPro) are organized into buckets (adopted 2026-05-30):
