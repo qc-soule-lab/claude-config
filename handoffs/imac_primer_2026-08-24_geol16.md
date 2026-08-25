@@ -10,6 +10,30 @@
 
 Pull first: `cd ~/repos/class_dev/geol-16-fall-2026 && git pull --ff-only` (branch `main`, through `6d1e5a1`).
 
+## Before opening the deck on the iMac: git is not the whole handoff
+
+**The deck lives in Dropbox, not in git**, so `git pull` does not bring it. The MacBook modified `geo16_f26_mtg02.pptx` three times this session and the file grew from 1.5 MB to 4.69 MB as images were embedded. **Let Dropbox finish pulling before opening it**, then confirm the iMac has the same bytes:
+
+```
+shasum -a 256 ~/"Queens College Dropbox/Dax Soule/AllFiles/QueensCollege/QC_Classes/QC_Geology/QC-GEOL 16/Geo016_F26/decks_fall2026/geo16_f26_mtg02.pptx"
+```
+
+Expected, as written by the MacBook at 18:37 on 2026-08-24:
+
+```
+72c8451c8f8a6a0a787e68d73af7e88d0410f9c5a70a3b651666aff5f6924aaf
+```
+
+Sanity check on the contents, which is faster than opening PowerPoint: **32 slides**, slide 5 titled "Tambora" with one picture, slide 6 "Tambora, 1815: the numbers" with none, slide 7 "How far the ash went" with one picture.
+
+If the checksum differs, Dropbox has not finished, or something on the iMac already touched the file. **Do not open it in PowerPoint until it matches** — opening and saving a half-synced deck is how a conflicted copy gets made, and PowerPoint's own save also refreshes auto-date fields, which is the failure the static-date fix exists to prevent.
+
+State at handoff, verified on the MacBook: no conflicted copies anywhere under Dropbox, Dropbox running and the file carrying its `com.dropbox.attrs` marker, zip integrity clean, PowerPoint closed with nothing open.
+
+**Backups sitting alongside the deck**, oldest first, if anything needs unwinding: `.pre_slide5` (1.5 MB, before any of today's work), `.pre_notelinks` (3.65 MB, after the photo and key-facts slide, before the notes rewrite), `.pre_slide7` (3.93 MB, before the ash figure was placed).
+
+**One machine at a time on the deck.** It is a binary in a sync folder with no merge, so two machines editing it produces a conflicted copy rather than a merge conflict, and the loss is silent.
+
 ## Where the walk stands
 
 **Meeting 2 deck is 32 slides.** Slides 5, 6 and 7 are built and in the deck. Slide 8 has a figure built but **not placed and not seen by him**.
