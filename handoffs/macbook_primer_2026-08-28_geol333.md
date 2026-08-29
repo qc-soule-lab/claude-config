@@ -76,6 +76,12 @@ Complete through §6.8: Eqs. 6.1-6.58 no gap, Tables 6.1-6.10, Figs. 6.1-6.39, 1
 - `records/burger_problems_integration_wk4_wk5_2026_08_28.md`: placement of Problems 6.7-6.14 into the existing Wk 4-5 blocks (section-first; useful as an inventory of fit).
 - `records/burger_coverage_priority_wk3_wk5_2026_08_28.md`: every subsection §6.1.1-§6.8.3 triaged COVER / READ ONLY / SKIP against the LO map and the HW/exam chain; anchor problems per meeting; what the A3 drafts lose; assessment chain per anchor. This is the one that matches his direction.
 
+## Landed after the primer was first written (all pushed)
+
+- `501a917` `records/burger_problems_integration_wk4_wk5_2026_08_28.md` (placement proposal, 7 WALK).
+- `7fa5287` `records/burger_coverage_priority_wk3_wk5_2026_08_28.md` (triage: 14 subsections in room, 10 read only, 8 skip; anchors Wk 4 Problem 6.9, Wk 5 Problem 6.11, Wk 3 left TBD).
+- `4603a31` Problems 6.1-6.6 indexed from seven late frames; **all fourteen problems 6.1-6.14 now have index rows**; Fig. 6.33 body and Fig. 6.34 axis closed; §6.4.4 ("Determining Horizontal Position") finally seen. Set end still unseen past 6.14. **Week 3 anchor suggestion from the reader: Problem 6.4** (free-air + Bouguer at four drill-hole positions, two below sea level, so both signs of both corrections), with 6.1 as a two-minute warm-up on the same coefficients and 6.3 (six-reading drift loop) as the loop-closure companion if there is room. Carry this to Dax at the Wk 3 decision sheet.
+
 ## Next Claude work, in order
 
 1. Read both proposals if they landed; walk the coverage-priority one with him, one decision sheet per meeting (Wk 3, Wk 4, Wk 5), then rebuild the A3 runsheets backward from the chosen anchors.
