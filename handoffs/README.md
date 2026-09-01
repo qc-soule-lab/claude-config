@@ -34,6 +34,7 @@ Either way this file carries the pointer, not the content.
 
 | Date | Machine | Project | Landed at | State | Detail |
 |---|---|---|---|---|---|
+| 2026-09-01 | iMac | GEOL 333, GEOL 16 | `geol-333-fall-2026` @ `restructure-rebalance-2026-06-21` `b523eee` **PUSHED**, `geol-16-fall-2026` @ `main` `f9e30b9` **PUSHED** | Wk 1 runsheet walk paused at Block 4 Beat 3; nothing queued. GEOL 16 meeting 1 slides posted and three Dropbox links unframed. The graduate advisor's syllabus critique now gates the 333 shell update. Both courses meet Wed Sep 2. | `handoffs/macbook_primer_2026-09-01_geol333.md` |
 | 2026-08-31 | MacBook | GEOL 16, GEOL 333 | `geol-16-fall-2026` @ `main` `d3f8b72` **PUSHED**, `claude-config` @ `main` `a3f0c59` **PUSHED** | Meeting 1 taught, room reached slide 17 of 24. Next decision is which of slides 18 to 24 carry into meeting 2, which settles the `EX 02` vocabulary question. Three deck defects diagnosed, none fixed. | `handoffs/imac_primer_2026-08-31_geol16.md`, and `geol-16-fall-2026` `docs/lesson_plans/records/class_01_taught_2026_08_31.md` |
 | 2026-08-30 | iMac | GEOL 333 / 714 | `geol-333-fall-2026` @ `restructure-rebalance-2026-06-21` `b9ba246` **PUSHED** | Wk 1 runsheet walkthrough through Block 4 Beat 1. Syllabi rewritten and delivered. Resume at Block 4 Beat 2. | `docs/lesson_plans/records/handoff_macbook_2026_08_30.md` |
 
