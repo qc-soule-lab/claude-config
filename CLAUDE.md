@@ -158,3 +158,14 @@ cannot hurt. Concretely:
 ## Ethical Check Standard
 
 **Prevent early, not remediate late.** Invoke the **`ethical-check`** skill before introducing new literature/data, producing prose for human reading, regenerating a figure that resembles a published one, committing/pushing/sharing outputs externally, WebFetching external sources, or when tempted to fudge a result (outlier drops, post-hoc thresholds, memory-based paraphrasing). Skill covers the 7-point check (provenance, license/TOS, PII, embargo, attribution, reproducibility, blast radius) and the publisher PDF / AI-disclosure / literature-handling hard rules. A `PreToolUse(WebFetch)` hook surfaces the same reminder whenever a URL matches a publisher or DOI-resolver domain.
+
+## Session Handoffs
+
+**Read `~/repos/claude-config/handoffs/README.md` at the start of a session**, before assuming a project's state. Work moves between machines and between projects, and a session in one project cannot otherwise see that the last session happened in another. If the newest row names a different project than the current one, say so rather than proceeding as though nothing happened elsewhere.
+
+**Append a row before ending a session**, then commit and push **both** repos: `claude-config` and the project's. An unpushed index reads as "nothing happened", which is the failure it exists to prevent. The row carries date, machine tag, project, `repo @ branch commit` with **PUSHED** or **LOCAL**, a one-sentence state, and a path to the detail note.
+
+**Detail notes stay in the project repo** next to the work they describe. The index carries the pointer, not the content.
+
+That file also holds **Machine notes**: standing facts about one machine rather than one session. Check it when a machine behaves differently from the others.
+
