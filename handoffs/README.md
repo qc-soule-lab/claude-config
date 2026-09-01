@@ -10,7 +10,12 @@
 
 **Before ending a session:** append a row at the top of the table. Then commit and push **both** repos, this one and the project's. An unpushed index is worse than none, because it reads as "nothing happened".
 
-**Detail notes stay in the project repo**, next to the work they describe. This file carries the pointer, not the content.
+**Where the detail note goes** depends on how far it reaches:
+
+- **One project:** the project's own repo, next to the work. A record of a class as taught belongs beside the deck it describes.
+- **More than one project, or aimed at a specific machine:** here in `handoffs/`, because it belongs to no single repo. `imac_primer_2026-08-31_geol16.md` is the pattern: written on the MacBook, addressed to the iMac, spanning GEOL 16 and GEOL 333.
+
+Either way this file carries the pointer, not the content.
 
 ## Row format
 
@@ -29,7 +34,7 @@
 
 | Date | Machine | Project | Landed at | State | Detail |
 |---|---|---|---|---|---|
-| 2026-08-31 | MacBook | GEOL 16 | `geol-16-fall-2026` @ `main` `d3f8b72` **PUSHED** | Meeting 1 taught, room reached slide 17 of 24. Five open items, led by what carries into meeting 2 and the `EX 02` vocabulary contract. | `docs/lesson_plans/records/class_01_taught_2026_08_31.md` |
+| 2026-08-31 | MacBook | GEOL 16, GEOL 333 | `geol-16-fall-2026` @ `main` `d3f8b72` **PUSHED**, `claude-config` @ `main` `a3f0c59` **PUSHED** | Meeting 1 taught, room reached slide 17 of 24. Next decision is which of slides 18 to 24 carry into meeting 2, which settles the `EX 02` vocabulary question. Three deck defects diagnosed, none fixed. | `handoffs/imac_primer_2026-08-31_geol16.md`, and `geol-16-fall-2026` `docs/lesson_plans/records/class_01_taught_2026_08_31.md` |
 | 2026-08-30 | iMac | GEOL 333 / 714 | `geol-333-fall-2026` @ `restructure-rebalance-2026-06-21` `b9ba246` **PUSHED** | Wk 1 runsheet walkthrough through Block 4 Beat 1. Syllabi rewritten and delivered. Resume at Block 4 Beat 2. | `docs/lesson_plans/records/handoff_macbook_2026_08_30.md` |
 
 ## Machine notes
