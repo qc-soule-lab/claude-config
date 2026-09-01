@@ -66,6 +66,16 @@ echo "TERM=$TERM"
 
 If `TMUX` is set, add `tmux show -g mouse` and `tmux show -g mode-style`.
 
+### MacBook: Dropbox files are online only, so large media reads as 0 bytes
+
+Confirmed 2026-08-31 from the iMac. The MacBook reported all four copies of `msh_1980.mp4` at 0 bytes; on the iMac the same four are materialized at 58,815,590 bytes with no placeholder attribute.
+
+**Nothing needs transferring between machines.** They are the same Dropbox files, and the MacBook simply has not downloaded them. The fix on that machine is to mark the file or its folder available offline, not to copy anything from the iMac.
+
+**The teaching risk is the point.** A 0-byte media file on the machine at the podium means the room depends on the network. Meeting 1 streamed the video for this reason. Before teaching from the MacBook, pin the media the meeting needs.
+
+This is the same mechanism as the 328 zero-byte files found in the GEOL 333 Dropbox audit on 2026-08-30: placeholders, not damage.
+
 ## Housekeeping
 
 Keep roughly the last twenty rows. Move older ones to `handoffs/archive_YYYY.md` rather than deleting them, the same discipline as `MEMORY.md`.
