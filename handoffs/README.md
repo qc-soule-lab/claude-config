@@ -43,28 +43,32 @@ Standing facts about a machine, as opposed to a session. Add here when a machine
 
 ### MacBook: terminal text cannot be selected or copied
 
-Reported 2026-08-31. Highlighting in the Claude Code terminal turns the selection green and neither Ctrl+C nor right click copies. The same text copies normally on the iMac. **Not diagnosed**, because it has only been described, not observed from that machine.
+Reported 2026-08-31. Highlighting in the Claude Code terminal turns the selection green and neither Ctrl+C nor right click copies. The same text copies normally on the iMac.
 
-**Two workarounds that need no diagnosis, and are the fastest path:**
+**DIAGNOSED 2026-08-31 from the MacBook. The cause is mouse reporting: Terminal never makes a selection at all.**
 
-- **Ask Claude to put it on the clipboard.** `printf '%s' '<text>' | pbcopy`, then Cmd+V anywhere. This bypasses terminal selection completely.
+Measured on that machine:
+
+| Check | Value |
+|---|---|
+| `TERM_PROGRAM` | `Apple_Terminal`, version 453 |
+| `TERM` | `xterm-256color` |
+| `TMUX` | not set, and **no tmux process exists on the machine** |
+| Terminal profile | `Basic`, with no custom `SelectionColor` |
+| `AppleHighlightColor` | unset, so the system default **blue** |
+| `CopyOnSelect` | not set |
+| `pbcopy` | round-trip verified working |
+
+**The green highlight is what settles it.** Terminal's Basic profile inherits the system highlight colour, which is blue on this machine. A green highlight is therefore not Terminal's text selection. It is Claude Code drawing its own, which means the drag is captured by the application and never reaches Terminal.app. No Terminal-level selection is created, so there is nothing for any copy key to take, which is also why right click's Copy does nothing.
+
+That eliminates the other two candidates. **tmux is not installed or running**, so it cannot own the selection. And the wrong-key theory cannot explain either a green highlight or an empty right-click Copy, though Cmd+C rather than Ctrl+C is still the correct key on macOS once a real selection exists.
+
+**The fix is to hold a modifier while dragging**, which suppresses mouse reporting for that drag. In Terminal.app the documented modifier is **Fn**. If Fn does not work, try **Shift**, which is the xterm convention some builds honour. In iTerm2 it is **Option**. This has not been confirmed by hand on the machine, so record which one works when you next try it.
+
+**Two workarounds that need no modifier at all:**
+
+- **Ask Claude to put it on the clipboard.** `printf '%s' '<text>' | pbcopy`, then Cmd+V anywhere. Verified working on this machine.
 - **Ask Claude to write it to a file and open it.** Copying out of Preview or an editor is unaffected.
-
-**Likely causes, most probable first:**
-
-1. **Mouse reporting.** A full-screen terminal program captures mouse drags, so the drag never reaches the terminal emulator. The bypass is to hold a modifier while dragging: **Shift** in Terminal.app, **Option** in iTerm2.
-2. **tmux with mouse mode on.** The selection belongs to tmux copy-mode rather than the terminal, and a green highlight fits a tmux `mode-style`. Shift-drag bypasses it. Inside copy-mode the copy key is Enter or `y`, not Ctrl+C.
-3. **Wrong key.** On macOS the copy key is **Cmd+C**. Ctrl+C sends an interrupt signal and will never copy.
-
-**To settle it, run on the MacBook and record the answer here:**
-
-```
-echo "TERM_PROGRAM=$TERM_PROGRAM"   # Apple_Terminal, iTerm.app, vscode
-echo "TMUX=${TMUX:-not in tmux}"
-echo "TERM=$TERM"
-```
-
-If `TMUX` is set, add `tmux show -g mouse` and `tmux show -g mode-style`.
 
 ### MacBook: Dropbox files are online only, so large media reads as 0 bytes
 
