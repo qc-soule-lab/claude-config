@@ -48,14 +48,13 @@ From the punch list's before-Wednesday list, as amended through today. **Almost 
 
 **Still owed by you and recorded as never sent: the two JP1 Paper List page URLs**, one per shell.
 
-## The thing worth deciding before you teach
+## The timing question is closed
 
-**The Wk 2 meeting does not fit.** The sequencing rehearsal recording puts the plan near **170 minutes against a 150-minute meeting**, and my own estimate elsewhere in the punch list is 199. Two conclusions from that recording:
+**Nothing is cut. The meeting will run out of time and that is fine** (instructor, 2026-09-08). The sequencing rehearsal put the plan near 170 minutes against 150; he was offered the pendulum derivation (§4) and the free-air-through-Burger block (§6 to §8) and declined both.
 
-- **Two rulers per station is the cheapest six minutes available**, and it improves the data as well.
-- **The only cut that actually closes the gap is moving the pendulum derivation to Week 3.** Everything else is trimming.
+This is the standing clock-follows-the-lesson policy, not a new call. The plan degrades gracefully on its own: sections run in written order, so what the evening does not reach is §6 onward, which is Week 3's topic in the week that owns it.
 
-That is a decision, not a task, and it is better made now than at 5:30 tomorrow.
+**Do not raise it again.** It was raised twice on 2026-09-08, and the same thing happened for Week 1 on 2026-09-01 after he had already ruled. Full entry at the top of `PUNCHLIST.md`.
 
 ## What changed today, in one place
 
