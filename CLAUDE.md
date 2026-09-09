@@ -98,6 +98,19 @@ Rules:
 - **Never overwrite to keep a name.** If a second instance of a thing appears, rename both so each is identified, or ask before renaming a pre-existing file (see the exceptions above).
 - **Flag, don't silently fix.** When work touches a generically named pre-existing file, say so and propose the specific name; Dax decides whether to rename.
 
+## An Approved Section Is Frozen
+
+**Once Dax approves a section, it does not change again unless he asks.** (His rule, 2026-09-09, during the Week 2 runsheet walk.) He reads a document section by section and rules on each one. That approval is worth nothing if a later draft quietly edits an approved section, because then every rebuild has to be re-read from the top and the walk stops saving him anything.
+
+- **Approval freezes the text, not just the decision.** No rewording, no tightening, no "while I was in there" improvement, no reordering, no reformatting of an approved section.
+- **This includes changes that follow from a later ruling.** If a ruling on §7 implies an edit to an approved §5, do not make it. Say what the ruling implies, name the approved section it touches, and let him decide.
+- **It includes fixes.** A typo, a broken number, or a factual error inside an approved section gets **raised, not corrected**. He may well say yes immediately; the point is that he knows.
+- **What stays editable:** anything he has not walked yet, instructor-note comments that are stripped from the artifact, and mechanical rebuilds that leave the text byte-identical.
+- **When a later version does change an approved section at his instruction, say so in that turn**, naming the section and what changed, so the change is never discovered by reading.
+- **Record approvals as they happen**, in the working file or the project's punch list, with the date. A walk that is not written down is a walk that gets repeated.
+
+Same discipline as the GEOL 16 two-step deck walk: log during the walk, apply when he calls for it.
+
 ## Pythonic Conventions
 
 **Write idiomatic, PEP 8-compliant Python.** New code should read cleanly and follow standard idioms.
