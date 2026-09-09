@@ -64,7 +64,9 @@ Diagnosed 2026-09-01. WeasyPrint cannot load `libgobject-2.0-0`, the GTK/pango s
 
 **Not everything is blocked.** `scripts/build_handout_pdfs.py` uses a different path and works here; the large-type Wk 1 runsheet was rebuilt on this machine repeatedly. `build_brightspace_html.py` also works, subject to the page-map note below.
 
-**Instructor ruling 2026-09-01: fix it after Sep 2, not during class week.** Until then this machine is source-editing only and every PDF is built on the iMac. The likely fix is installing the GTK stack via Homebrew.
+**Instructor ruling 2026-09-01: fix it after Sep 2, not during class week.** Until then this machine is source-editing only and every PDF is built on the iMac.
+
+**The cause is not a missing stack, corrected 2026-09-09.** glib and pango have been installed at `/opt/homebrew` since May 18. WeasyPrint opens them through cffi's `dlopen`, which does not search Homebrew's prefix, and `DYLD_FALLBACK_LIBRARY_PATH` is unset here, so the libraries are present and invisible at once. Setting `DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib` renders a PDF on this machine, verified by probe. The fix and its verification steps are in `macbook_fixes_2026-09-09_toolchain.md`; the export is not yet in the shell profile.
 
 ### MacBook: the Brightspace page maps are absent, so HTML built here loses its links
 
