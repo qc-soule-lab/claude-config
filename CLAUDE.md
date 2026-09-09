@@ -77,6 +77,27 @@ Communicate about collaborators and prior work with collegial professionalism: f
 
 Reason: predictable, scannable layouts; case-insensitive filesystems on macOS (APFS default) hide bugs that git's case-sensitive tracking later surfaces — a single lowercase convention eliminates the whole class.
 
+### Names must be unique and self-identifying
+
+**A filename must still identify the file once a dozen siblings of the same kind exist.** Name the specific instance, not the generic category. Motivating case (2026-09-09): a GEOL 16 lecture asset named `opening_quiz.pdf`, which stops being findable the moment there is a second opening quiz.
+
+Every new file name carries, in this order, whichever of these apply:
+
+1. **Scope**: the course, project, cruise, or dataset it belongs to (`geol16`, `magma2vents`, `bravoseis`).
+2. **Instance**: the meeting, week, station, deployment, or date that distinguishes it from its siblings (`mtg01`, `week_03`, `sta_04`, `2026_09_09`). Zero-pad numbers to a fixed width so lexical sort equals chronological sort.
+3. **Kind**: what the thing is (`opening_quiz`, `runsheet`, `roster`, `overview`).
+4. **Version or variant** only when more than one legitimately coexists: `_v02`, `_key` (answer key), `_blank`, `_draft`. Never `_final`, `_new`, `_fixed`, `_copy`, `_v2_real`.
+
+So `geol16_mtg01_opening_quiz.pdf`, not `opening_quiz.pdf`. Its answer key is `geol16_mtg01_opening_quiz_key.pdf`.
+
+Rules:
+
+- **Match the directory's existing pattern before inventing one.** If siblings already use a scheme (GEOL 16 uses `page_mtg01.md`, `page_mtg02.md`), extend it rather than introducing a competing scheme in the same folder. Consistency inside a directory beats the ideal ordering above.
+- **Directory context does not excuse a bare name.** Files get emailed, uploaded to Brightspace, dropped in a student's Downloads folder, and attached to tickets, all of which strip the path. The name has to survive that.
+- **No dates as the only distinguisher** when a meeting or week number exists: the number is what Dax and the students refer to. A date may follow the number.
+- **Never overwrite to keep a name.** If a second instance of a thing appears, rename both so each is identified, or ask before renaming a pre-existing file (see the exceptions above).
+- **Flag, don't silently fix.** When work touches a generically named pre-existing file, say so and propose the specific name; Dax decides whether to rename.
+
 ## Pythonic Conventions
 
 **Write idiomatic, PEP 8-compliant Python.** New code should read cleanly and follow standard idioms.
