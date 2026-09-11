@@ -120,3 +120,4 @@ This is the same mechanism as the 328 zero-byte files found in the GEOL 333 Drop
 ## Housekeeping
 
 Keep roughly the last twenty rows. Move older ones to `handoffs/archive_YYYY.md` rather than deleting them, the same discipline as `MEMORY.md`.
+| 2026-09-11 | iMac | geol-333-fall-2026 | geol-333-fall-2026 @ restructure-rebalance-2026-06-21 d49333d **PUSHED** | Week 3 (Wed Sep 16) is print-ready: runsheet v4 and the §4B catalyst on verified quarter-sheets; PUNCHLIST.md reopened with a dated READ FIRST carrying ten open items P1-P10. | `docs/lesson_plans/week_03_reduction_cascade/daily_inquiry.md` |
