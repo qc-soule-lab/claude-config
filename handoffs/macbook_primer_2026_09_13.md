@@ -16,6 +16,45 @@
 
 **3. Terminal selection does not copy** (mouse reporting; diagnosed 2026-08-31). Ask for `pbcopy` rather than trying to select text out of the terminal.
 
+## First five minutes on the MacBook, in order
+
+**1. Pull four repos.** `geol-333-fall-2026` is on a **non-default branch**, so a plain pull will not get tonight's work:
+
+```
+cd ~/repos/class_dev/geol-16-fall-2026    && git pull          # main, ec781be
+cd ~/repos/class_dev/geol-333-fall-2026   && git checkout restructure-rebalance-2026-06-21 && git pull
+cd ~/repos/class_dev/geol-333-714         && git pull          # main, 1345f08
+cd ~/repos/claude-config                  && git pull          # main
+```
+
+**2. Install the Brightspace page maps. Nothing that builds HTML works without them.** They are gitignored in both repos because they hold live shell topic URLs, so a clone does not have them. Copies are staged in Dropbox:
+
+```
+D=~/"Queens College Dropbox/Dax Soule/AllFiles/QueensCollege/QC_Classes/_shell_page_maps"
+cp "$D/geol16_brightspace_pages.json"      ~/repos/class_dev/geol-16-fall-2026/scripts/brightspace_pages.json
+cp "$D/geol714_brightspace_pages.json"     ~/repos/class_dev/geol-333-fall-2026/scripts/brightspace_pages.json
+cp "$D/geol333_brightspace_pages_333.json" ~/repos/class_dev/geol-333-fall-2026/scripts/brightspace_pages_333.json
+```
+
+Both builders now refuse to run without one, so a missing map is an abort rather than a silent link strip. GEOL 16's guard was added tonight; 333 has had one since 2026-09-01, when a stub map cut its built set from 336 internal links to 72 with no failure signal.
+
+**3. Check the tests.** GEOL 16 should be fully green (435). `geol-333-fall-2026` should be `1 failed, 207 passed`, and the one failure is `test_public_notebooks_are_not_stale` — that is the flag saying the HW1 notebook is waiting for its hand check, not a regression.
+
+## Things that are NOT in git and where they are
+
+| What | Where | Note |
+|---|---|---|
+| Brightspace page maps | Dropbox `QC_Classes/_shell_page_maps/` | Gitignored. See step 2. |
+| GEOL 16 quiz packages (`.imscc`) | not tracked, iMac only | Rebuild instead: `uv run python scripts/build_quiz_package.py --quiz data_lab_3_2_quiz.md --out outputs/geol16_data_lab_3_2_quiz.imscc`. No WeasyPrint needed, so this works on the MacBook. |
+| Decks and printable PDFs | Dropbox `Class Meetings 2026/` | **Pin offline before leaving the network.** |
+
+## Where tonight's findings are written down
+
+- `geol-333-fall-2026/docs/lesson_plans/records/punitive_register_sweep_2026_09_13.md` — every punitive-register finding with a proposed rewrite, and every points figure with its syllabus source or a note that it has none. **Copied into the GEOL 16 repo too**, because a third of the findings are GEOL 16's. Nothing student-facing was reworded on the strength of it.
+- `geol-333-fall-2026/docs/lesson_plans/records/hw1_defect_repairs_2026_09_13.md` — what the HW1 vetting verified and changed, and the exact publish commands.
+- `docs/lesson_plans/records/decision_packets_2026_09_12/p2_illustration_weight_explainer.md` — the plain-language explainer for the one ruling he said he did not yet understand.
+- Both `PUNCHLIST.md` files carry a numbered index at the top, ranked by urgency, renumbered in reading order.
+
 ## What is already done and needs nothing
 
 **GEOL 16 is ready for Monday.** Deck at 34 slides, ending on the closing block so the key terms, the sheet hand-in and "before we next meet" all run inside the meeting. Class 3 recap posted. Glossary pasted. Both data lab quizzes imported and linked. Five pages pasted. The Daily Inquiry sheet is built at two catalysts, matching the deck after the split.
