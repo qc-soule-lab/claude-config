@@ -84,6 +84,8 @@ On this machine the 714 map is a June-30 stub whose every value is an empty stri
 
 **A preflight now refuses to build** from a missing or mostly-blank map (`7134aaa`), so this cannot recur silently. **The populated maps live on the iMac**, which is where the committed 336-link set was built and where HTML rebuilds belong.
 
+**Resolved on the MacBook 2026-09-13.** Current copies of all three maps (geol16, geol714, geol333) were staged in Dropbox at `QC_Classes/_shell_page_maps/` and installed into both repos (59 / 45 / 42 entries, JSON-validated). The staging folder is the canonical hand-carry route; re-copy from it after any iMac shell session that changes topic URLs.
+
 ### MacBook: terminal text cannot be selected or copied
 
 Reported 2026-08-31. Highlighting in the Claude Code terminal turns the selection green and neither Ctrl+C nor right click copies. The same text copies normally on the iMac.
@@ -122,6 +124,8 @@ Confirmed 2026-08-31 from the iMac. The MacBook reported all four copies of `msh
 **The teaching risk is the point.** A 0-byte media file on the machine at the podium means the room depends on the network. Meeting 1 streamed the video for this reason. Before teaching from the MacBook, pin the media the meeting needs.
 
 This is the same mechanism as the 328 zero-byte files found in the GEOL 333 Dropbox audit on 2026-08-30: placeholders, not damage.
+
+**How to hydrate from a Claude session, verified 2026-09-13.** Shell reads (`cat`, `head`, `cp`) do NOT trigger a download: they return 0 bytes instantly, and copying a placeholder produces a 0-byte copy with no error. `open <file>` (LaunchServices, the Finder path) does trigger it; the file materialized within seconds in every test. So: check `stat -f%z` first, `open` anything that reads 0, wait, re-check size, then copy. The side effect is that the file's default app launches once per hydration.
 
 ## Housekeeping
 
