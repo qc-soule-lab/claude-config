@@ -19,9 +19,9 @@ recorded as unposted when they had posted). Only mark a row SAID when he confirm
 | | Item | Why it must be said | Status |
 |---|---|---|---|
 | **A1** | **HW1 is now due Sun Sep 27, not Wed Sep 23** | 🔴 **He told the room Wed Sep 23 out loud on Sep 16**, and `page_wk2` and `page_wk3` carried that date until today. It is an extension so nobody is harmed, but they are working to the old date right now | not said |
-| **A2** | **HW2 is now due Sun Oct 4, not Wed Sep 30** | Same. `page_wk3` announced Sep 30 at the Week 3 meeting | not said |
-| **A3** | **HW1 is posted** | Promised for Thursday Sep 17 in the Week 3 announcements and in the room. **Blocked on PUNCHLIST C1 and C4, his hands** | blocked |
-| **A4** | **HW2 is posted** | The §4 catalyst told the room "the profile you are about to reduce", so they are expecting it | blocked |
+| **A2** | **HW2a is now due Sun Oct 4, not Wed Sep 30** | Same. `page_wk3` announced Sep 30 at the Week 3 meeting. Carry it in the same breath as A13, since the assignment they were told about is now the first of two | not said |
+| **A3** | **HW1 is posted** | Promised for Thursday Sep 17 in the Week 3 announcements and in the room. **The notebook is published and in sync** (verified 2026-09-17); what remains is releasing it in both shells, his hands | his hands |
+| **A4** | **HW2a is posted** | The §4 catalyst told the room "the profile you are about to reduce", so they are expecting it. Everything in the repo is built; **blocked only on his vetting marker**, then publish and the shell work | blocked |
 | **A5** | **BP1, Burger Chapter 6 problems: launches Wed Sep 23, due Wed Sep 30** | A new kind of assignment with a new numbering. Needs one sentence on what it is and that it is graded with the homework, not on top of it. **Blocked: which problems it carries is not decided** | blocked |
 | **A6** | **Due days changed: homework on Sundays, book problems on Wednesdays** | The syllabus they hold says "Problem sets are due Wednesdays at 11:59 PM". Both syllabi are rebuilt and need redelivery | not said |
 | **A7** | **CLR Checkpoint 1 due Wed Sep 23, 11:59 PM. 714 only** | Said in the room Sep 16 and not since. The backstop matters: post by the 23rd or he assigns a topic on the 24th, swappable until Oct 21 | not said |
@@ -30,6 +30,8 @@ recorded as unposted when they had posted). Only mark a row SAID when he confirm
 | **A10** | **Lin response post due Sun Sep 27** | Week 4's deliverable, and it now shares a deadline with HW1. See `docs/brightspace/discussion_lin_methods.md` | not said |
 | **A11** | **Week 4 meets Wed Sep 23**, what it covers and what to bring | Standing practice. Content is unsettled until the Week 4 plan is built | blocked |
 | **A12** | **Midterm 1 is Wed Oct 14, moved from Oct 7** | He said it in the room Sep 16, but **PUNCHLIST row 26 says nothing is pasted, so the live shells may still show the old order.** Verify what a student sees before announcing anything | verify first |
+| **A13** | **HW2 is now two assignments: HW2a due Sun Oct 4, HW2b due Sun Oct 11** | 🔴 **The syllabus they hold lists six homework assignments and one HW2.** The rebuilt assignment timed at 206 minutes against HW1's 130, so it splits after the reduction: HW2a is the reduction, HW2b is the density and the depth. **Both are graded inside Problem Sets & Labs, which is a category weight, so no percentage moves and nobody's grade basis changes** -- say that explicitly, because a student reading "one more assignment" will assume otherwise. Week 4 launches HW2b | not said |
+| **A14** | **The HW1 rubric PDF on Brightspace carries the wrong due date** | It reads "Due Wed Sep 23"; the assignment is due **Sun Sep 27**. The rubric source is correct and the rendered PDF is four days stale. Either re-render and re-upload, or say it in the A1 announcement. **A posted artifact contradicting the posted deadline is the kind of thing students find first** | not said |
 
 ## GEOL 16, week of Mon Sep 15. Meeting 6 is Wed Sep 23
 
