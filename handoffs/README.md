@@ -21,6 +21,7 @@ Either way this file carries the pointer, not the content.
 
 | Field | Rule |
 |---|---|
+| 2026-09-18 | iMac | GEOL 333/714 | `geol-333-fall-2026 @ restructure-rebalance-2026-06-21 76b218c` **PUSHED**; `claude-config @ main` **PUSHED** | BP1 built from the learning outcomes out, posted in both shells and announced. HW3 (Orca) cut and the renumber applied in two files only. Next: HW0 grading, the Week 4 runsheet rebuild before Sep 23, HW2b's vet before Sep 30 | `geol-333-fall-2026:docs/lesson_plans/bp1_burger_ch6_plan.md` |
 | Date | ISO, the date the session ended |
 | Machine | iMac, MacBook, MacBookPro, Hub, DellPC (the tags in `CLAUDE.md`) |
 | Project | Human name of the course or project |
