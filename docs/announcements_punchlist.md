@@ -22,7 +22,7 @@ recorded as unposted when they had posted). Only mark a row SAID when he confirm
 | **A2** | **HW2a is now due Sun Oct 4, not Wed Sep 30** | Same. `page_wk3` announced Sep 30 at the Week 3 meeting. Carry it in the same breath as A13, since the assignment they were told about is now the first of two | not said |
 | **A3** | **HW1 is posted** | 🔴 **It is released in both shells as of 2026-09-17 and no announcement has gone out.** Promised for Thursday Sep 17 in the Week 3 announcements and in the room. Nothing is blocking this one | ready to send |
 | **A4** | **HW2a is posted** | The §4 catalyst told the room "the profile you are about to reduce", so they are expecting it. Everything in the repo is built; **blocked only on his vetting marker**, then publish and the shell work | blocked |
-| **A5** | **BP1, Burger Chapter 6 problems: launches Wed Sep 23, due Wed Sep 30** | A new kind of assignment with a new numbering. Needs one sentence on what it is and that it is graded with the homework, not on top of it. **Blocked: which problems it carries is not decided** | blocked |
+| **A5** | **BP1, Burger Chapter 6 problems: launches Wed Sep 23, due Wed Oct 7** | 🔴 **UNBLOCKED 2026-09-18.** Three problems, Burger 6.6, 6.9 and 6.12, each the twin of one worked at the board. **Submitted as `BP1_LASTNAME.pdf`, handwritten and scanned**, which is the first assignment in this course that is not a notebook, so say it plainly. A new numbering that is **graded inside Problem Sets & Labs alongside the homework, not on top of it**, so no percentage moves. The due date is Oct 7 rather than Sep 30 because 6.12 needs the Week 5 meeting. **No rubric is posted, his ruling 2026-09-18**; the assignment page carries the grading basis instead | ready to send |
 | **A6** | **Due days changed: homework on Sundays, book problems on Wednesdays** | The syllabus they hold says "Problem sets are due Wednesdays at 11:59 PM". Both syllabi are rebuilt and need redelivery | not said |
 | **A7** | **CLR Checkpoint 1 due Wed Sep 23, 11:59 PM. 714 only** | Said in the room Sep 16 and not since. The backstop matters: post by the 23rd or he assigns a topic on the 24th, swappable until Oct 21 | not said |
 | **A8** | **Geology Days replies due Wed Sep 23, even if the answer is no** | Already announced once; this is the last week to reply | not said |
@@ -50,7 +50,7 @@ recorded as unposted when they had posted). Only mark a row SAID when he confirm
 | | |
 |---|---|
 | **HW1 release** | C1 hand-verify with Q6.1 unconfirmed, then C2 publish, then C4 release. A1 and A3 both wait on it |
-| **BP1's contents** | Which Burger Chapter 6 problems. PUNCHLIST row 11 says Midterm 1 must test whatever it assigns |
+| ~~**BP1's contents**~~ | **CLOSED 2026-09-18.** Burger 6.6, 6.9 and 6.12, board twins 6.5, 6.10 and 6.8. Built, verified and committed; see `bp1_burger_ch6_plan.md` in the course repo. Still owed on it: the Brightspace object in both shells and the gradebook item |
 | **Week 4's plan** | A11 has nothing to say until the learning objectives and arc exist |
 | **GEOL 16 meeting 6 deck** | Rows 28 to 30. B1 needs the reading, which needs the deck |
 
