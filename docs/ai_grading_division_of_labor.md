@@ -2,15 +2,17 @@
 
 # AI-assisted grading: who does what, and why
 
-## 0. Verify the tenant before any student work goes in
+## 0. The tenant, and why a model's self-report is not evidence about it
 
-Asked which product it was, Copilot answered: *"I am M365 Copilot based on GPT-5 chat model. In this chat, I am not running as GitHub Copilot and **I am not authenticated as your CUNY tenant.**"*
+**Settled 2026-09-19: Dax is signed in to Copilot with his CUNY login.** The session is the approved surface and student work may be pasted into it.
 
-The FERPA approval attaches to **Microsoft 365 Copilot via CUNY Login**, which is the university-licensed service approved for non-public, internal and sensitive university data. A Copilot session that is not authenticated to the CUNY tenant is not that surface, whatever the model behind it.
+This needed settling because Copilot, asked which product it was, answered: *"I am M365 Copilot based on GPT-5 chat model. In this chat, I am not running as GitHub Copilot and I am not authenticated as your CUNY tenant."*
 
-**Before any student work is pasted or uploaded, confirm the session is signed in with the CUNY account and shows enterprise data protection.** Design work, rubrics and prompts carry no student data and can be drafted in any session. Scans of student sheets cannot.
+**That claim was wrong, and the general lesson is worth more than the specific correction.** A model has no reliable view of its own runtime: which tenant it is in, what data protections apply, what tools it holds. It produces a plausible sentence about its configuration the same way it produces any other sentence. The instructor's own sign-in is direct evidence; the model's introspection is not evidence at all. The most likely reading of what it said is that it has no tenant-data grounding in the conversation, which is a different thing from enterprise data protection being off, but that reading is also a guess.
 
-This is the same distinction the GEOL 333 HW0 grading prompt already carries: do not use a personal or consumer Copilot.
+Apply the same scepticism to any capability claim. When Copilot was asked whether it could open a pull request it answered no, which is checkable and consistent with the product. Had it answered yes, the answer to verify it would have been to ask it to actually do something small, not to believe it.
+
+**What remains operationally true:** the approval attaches to Microsoft 365 Copilot via CUNY Login. A personal or consumer Copilot is a different product and is not covered, which is the distinction the GEOL 333 HW0 grading prompt already carries.
 
 ## 1. The three roles
 
