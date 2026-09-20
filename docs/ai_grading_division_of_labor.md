@@ -1,5 +1,21 @@
 *AI-generated draft (Claude, Anthropic), instructor-facing working contract for review. Written 2026-09-19 from Dax's stated division of labor and from CUNY Copilot's own answers to a capability questionnaire put to it the same day. Lab-wide: governs GEOL 16 and GEOL 333/714.*
 
+> **⚠️ REVERSED 2026-09-20. Read this before anything below.** His ruling: *"I want to do most things in claude, and then have copilot only handle matching names to identifiers."* His assessment of the grader: *"copilot is pretty bad it is not very useful."*
+>
+> **The division below is superseded.** The current split:
+>
+> | Stage | Who |
+> |---|---|
+> | Design, and **grading the de-identified work faces** | Claude |
+> | **Reading the name faces only**, to pair each identifier with a student | CUNY Copilot |
+> | Merging that pairing into the ledger | script |
+> | Confirm, override, assign, release | Dax |
+>
+> **What makes this compliant, and the condition it rests on.** The GEOL 16 Meeting 4 sheets are CODED: the front carries name, class number and identifier; the back carries the identifier and the answers and **no name**. A scan of the back is therefore de-identified, on the same 34 CFR 99.31(b)(2) basis already recorded for the GEOL 333 cards. **Claude must never receive the front faces, and must never receive the identifier-to-name mapping.** If both reach one conversation the de-identification collapses and this arrangement is void.
+>
+> Everything else below still holds: models never write student-facing prose, feedback is emitted as codes from an approved bank, deterministic steps stay in scripts, and no grade or feedback is released without his approval.
+
+
 # AI-assisted grading: who does what, and why
 
 ## 0. The tenant, and why a model's self-report is not evidence about it
