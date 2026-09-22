@@ -84,7 +84,10 @@ Either way this file carries the pointer, not the content.
 
 Standing facts about a machine, as opposed to a session. Add here when a machine behaves differently from the others.
 
-### MacBook: WeasyPrint is broken, so no PDF builds here
+### MacBook: WeasyPrint works since 2026-09-22 (was broken; history below)
+
+**RESOLVED 2026-09-22, and the fix needs no environment variable.** Ten symlinks in `~/lib` point at the Homebrew dylibs WeasyPrint opens (`libgobject-2.0`, `libpango-1.0`, `libpangoft2-1.0`, `libharfbuzz`, `libharfbuzz-subset`, `libfontconfig`, each in its bare and versioned name, all targeting `/opt/homebrew/lib/...`, which Homebrew keeps pointed at the current Cellar version). Python's `ctypes.util.find_library` searches `~/lib` before the system paths, so cffi finds them from any shell, including Claude Code's, which starts from a cached environment snapshot that carries no `DYLD_` variables and therefore never saw the `.zprofile` export no matter which startup file it lived in. Verified with no variable set: WeasyPrint 68.1 renders in the geol-333 venv (probe PDF looked at), WeasyPrint 69.0 imports in the geol-16 venv, and `uv run pytest -q` in geol-333 collects fully and gives `3 failed, 242 passed, 5 skipped`, the three being the same accounted-for flags as on 09-13 (stale public notebooks, empty `outputs/syllabus_staging`, HTML mtime). The `DYLD_FALLBACK_LIBRARY_PATH` export can stay in the profiles; it is harmless and redundant. `~/lib` is not tracked by dotfiles; recreate it with `ln -sfn /opt/homebrew/lib/<name> ~/lib/<name>` for the ten names if the machine is rebuilt. Still to do here: re-run each formerly blocked PDF build once and look at the page.
+
 
 Diagnosed 2026-09-01. WeasyPrint cannot load `libgobject-2.0-0`, the GTK/pango stack macOS does not ship. Everything that renders a PDF through it fails: both syllabus PDFs, `outputs/instructor_packs/week_01/timing_card.pdf`, and four tests in `geol-333-fall-2026` (`4 failed, 59 passed, 1 skipped`, identical on clean HEAD, so environmental rather than code).
 
@@ -96,7 +99,7 @@ Diagnosed 2026-09-01. WeasyPrint cannot load `libgobject-2.0-0`, the GTK/pango s
 
 **Fixed 2026-09-13: the export is installed** in the MacBook's live `~/.zprofile` and `~/.zshrc` and mirrored to `dotfiles/zsh/.zshrc` (note: dotfiles are not deployed on the MacBook — its live profile files are standalone). Verified in a fresh login shell: WeasyPrint probe renders, and both course test suites collect and run (`435 passed` in geol-16; `3 failed, 205 passed` in geol-333, where all three failures are accounted for — the by-design stale-notebook flag, an empty `outputs/syllabus_staging` that exists only on the iMac, and an mtime artifact of `git pull` in the built-HTML freshness check, with every flagged HTML/MD pair verified in-sync in git). PDF *builds* still belong on the iMac until each blocked build is re-run and visually checked per the toolchain note's plan.
 
-**Claude's Bash tool does not see the export (2026-09-16).** The tool runs a non-login shell, so `uv run pytest` fails at collection with the libgobject error even though the fix is installed. Prefix it: `DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib uv run pytest -q`. The exit-slip builder needs the same prefix.
+**Claude's Bash tool did not see the export (2026-09-16), superseded by the `~/lib` fix above (2026-09-22).** The prefix `DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib uv run pytest -q` is no longer needed. The 09-16 note blamed a non-login shell; the tool's shell reports itself as a login shell and still lacked the variable, which points at the environment snapshot rather than the startup files.
 
 ### MacBook: the Brightspace page maps are absent, so HTML built here loses its links
 

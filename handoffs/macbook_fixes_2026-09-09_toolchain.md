@@ -68,6 +68,12 @@ either course that runs on a machine with no GTK stack, which is worth having.
 
 ---
 
+### Resolved 2026-09-22
+
+The export was installed 09-13 and works in a fresh login shell, but Claude Code's tool shell starts from a cached environment snapshot with no `DYLD_` variables, so every Claude session on this machine still failed. Replaced by ten symlinks in `~/lib` to the Homebrew dylibs (bare and versioned names of gobject-2.0, pango-1.0, pangoft2-1.0, harfbuzz, harfbuzz-subset, fontconfig). `ctypes.util.find_library` searches `~/lib` first, so no variable is needed in any shell. Verified: probe renders with no variable, geol-333 suite `3 failed, 242 passed, 5 skipped` with the three accounted for, geol-16 venv imports WeasyPrint 69.0. Plan steps 3 (re-run and look at each blocked build) and 5 (machine note) remain open and done respectively.
+
+---
+
 ## Problem 2: dragging to select in Claude Code copies nothing
 
 **What is already known** (diagnosed 2026-09-01, recorded in `README.md`): the
