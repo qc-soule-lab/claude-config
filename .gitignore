@@ -34,3 +34,6 @@ history.jsonl
 mcp-needs-auth-cache.json
 stats-cache.json
 .nfs*
+
+# Anthropic skill sync writes here via the ~/.claude/skills symlink; not lab-authored
+skills/synced/
